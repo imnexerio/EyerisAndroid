@@ -19,11 +19,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.mediapipe.tasks.vision.core.RunningMode
-import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import com.google.mediapipe.tasks.components.containers.Category
-
+import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
 
 class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener {
 
@@ -147,25 +146,23 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         Log.e(TAG, "Error: $error (Code: $errorCode)")
     }
 
-//    private var categories: MutableList<Category?> = MutableList(52) { null }
-//
-//    fun updateResults(faceLandmarkerResult: FaceLandmarkerResult? = null) {
-//        categories = MutableList(52) { null }
-//        if (faceLandmarkerResult != null) {
-//            val sortedCategories = faceLandmarkerResult.faceBlendshapes().get()[0].sortedBy { -it.score() }
-//            val min = kotlin.math.min(sortedCategories.size, categories.size)
-//            for (i in 0 until min) {
-//                categories[i] = sortedCategories[i]
-//            }
-////            Log.i(TAG, "Updated categories:  $categories")
-//        }
-//    }
+    private var categories: MutableList<Category?> = MutableList(2) { null }
 
+    fun updateResults(faceLandmarkerResult: FaceLandmarkerResult? = null) {
+        categories = MutableList(2) { null }
+        if (faceLandmarkerResult != null) {
+            val sortedCategories = faceLandmarkerResult.faceBlendshapes().get()[0]
+
+            categories[0]=sortedCategories[9]
+            categories[1]=sortedCategories[10]
+        }
+    }
+
+
+    // ...
 
     override fun onResults(resultBundle: FaceLandmarkerHelper.ResultBundle) {
-        Log.i(TAG, "FaceLandmarkerService: Results: ${resultBundle.result}")
 //        Log.i(TAG, "FaceLandmarkerService: Results: ${resultBundle.result}")
-
         // Update the overlay view if it's active
         OverlayManager.updateOverlay(
             resultBundle.result,
@@ -175,26 +172,12 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         )
 
         // Update the categories with the result
-//        updateResults(resultBundle.result)
-//
-//        Log.i(TAG, "Updated categories: $categories")
+        updateResults(resultBundle.result)
+        Log.i(TAG, "Blink : ${categories}")
+
     }
 
-    // ...
 
-
-//    override fun onResults(resultBundle: FaceLandmarkerHelper.ResultBundle) {
-//        Log.i(TAG, "FaceLandmarkerService: Results: ${resultBundle.result}")
-//
-//
-//        // Update the overlay view if it's active
-//        OverlayManager.updateOverlay(
-//            resultBundle.result,
-//            resultBundle.inputImageHeight,
-//            resultBundle.inputImageWidth,
-//            RunningMode.LIVE_STREAM
-//        )
-//    }
 
     class ServiceLifecycleOwner : LifecycleOwner {
         val lifecycleRegistry = LifecycleRegistry(this)
