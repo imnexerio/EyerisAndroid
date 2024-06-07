@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@id/camera_fragment"
+        android:icon="@drawable/ic_baseline_photo_camera_24"
+        android:title="Preview"
+         />
+
+        <item
+            android:id="@id/Analytics_fragment"
+            android:icon="@drawable/baseline_analytics_24"
+            android:title="Analytics"
+             />
+        <item
+            android:id="@+id/Exercises_fragment"
+            android:icon="@drawable/baseline_fitness_center_24"
+            android:title="Exercises"
+             />
+        <item
+            android:id="@id/settings_fragment"
+            android:icon="@drawable/baseline_settings_24"
+            android:title="Settings"
+             />
+</menu>
