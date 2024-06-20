@@ -1,17 +1,15 @@
 package com.imnexerio.eyeris
 
-import android.content.Intent
+
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.imnexerio.eyeris.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
+//    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +25,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Start the foreground service
-        startFaceLandmarkerService()
+//        startFaceLandmarkerService()
     }
 
-    override fun onBackPressed() {
-        finish()
-    }
 
-    private fun startFaceLandmarkerService() {
-        val serviceIntent = Intent(this, FaceLandmarkerService::class.java)
-        ContextCompat.startForegroundService(this, serviceIntent)
-    }
+//    private fun startFaceLandmarkerService() {
+//        val serviceIntent = Intent(this, FaceLandmarkerService::class.java)
+//        ContextCompat.startForegroundService(this, serviceIntent)
+//    }
 }

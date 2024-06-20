@@ -20,7 +20,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/FloatingActionFaceLandmark"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="?android:attr/actionBarSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionOptions"
             android:layout_width="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="?android:attr/actionBarSize"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -55,7 +55,7 @@
             android:id="@+id/PreviewButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginBottom="?android:attr/actionBarSize"
             android:clickable="true"
             android:visibility="gone"
@@ -71,7 +71,7 @@
             android:id="@+id/OverlayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="?android:attr/actionBarSize"            android:clickable="true"
             android:visibility="gone"
             app:layout_constraintRight_toLeftOf="@id/floatingActionOptions"
