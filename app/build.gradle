@@ -167,4 +167,11 @@ dependencies {
 
     // MediaPipe Library
     implementation 'com.google.mediapipe:tasks-vision:0.10.0'
+
+//    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    implementation 'com.github.Taosif7:RingChartLib:1.0.0'
+
 }
