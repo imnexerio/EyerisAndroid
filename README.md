@@ -29,11 +29,11 @@ To get a local copy up and running follow these simple steps:
 
 ## Contributing
 
-We welcome contributions from the community, whether it's through bug reports, feature requests, or pull requests. For more information on how to contribute, please refer to the CONTRIBUTING.md file.
+We welcome contributions from the community, whether it's through bug reports, feature requests, or pull requests.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file(https://sites.google.com/view/imnexerio-eyeris/home) for details.
 
 ## Acknowledgments
 
