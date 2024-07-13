@@ -40,4 +40,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - This project in based on MediaPipe(https://ai.google.dev/edge/mediapipe/) .
 
 Join us in developing Eyeris and help shape the future of mobile computer vision applications!
-```
+
