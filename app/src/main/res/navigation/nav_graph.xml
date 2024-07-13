@@ -8,31 +8,23 @@
         android:id="@+id/permissions_fragment"
         android:name="com.imnexerio.eyeris.fragments.PermissionsFragment"
         android:label="PermissionsFragment">
-
         <action
-            android:id="@+id/action_permissions_to_camera"
-            app:destination="@id/camera_fragment"
-            app:popUpTo="@id/permissions_fragment"
-            app:popUpToInclusive="true" />
-
+            android:id="@+id/action_permissions_fragment_to_Analytics_fragment"
+            app:destination="@id/Analytics_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/camera_fragment"
         android:name="com.imnexerio.eyeris.fragments.CameraFragment"
-        android:label="CameraFragment">
-
-        <action
-            android:id="@+id/action_camera_to_permissions"
-            app:destination="@id/permissions_fragment"
-            app:popUpTo="@id/camera_fragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:label="CameraFragment"/>
 
     <fragment
         android:id="@+id/Analytics_fragment"
         android:name="com.imnexerio.eyeris.fragments.Analyticsfragment"
         android:label="AnalyticsFragment">
+        <action
+            android:id="@+id/action_Analytics_fragment_to_permissions_fragment"
+            app:destination="@id/permissions_fragment" />
     </fragment>
 
     <fragment

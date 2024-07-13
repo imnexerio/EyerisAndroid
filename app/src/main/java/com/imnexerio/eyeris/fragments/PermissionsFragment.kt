@@ -3,9 +3,11 @@ package com.imnexerio.eyeris.fragments
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -78,10 +80,12 @@ import com.imnexerio.eyeris.R
 //}
 
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA, Manifest.permission.POST_NOTIFICATIONS)
 
 class PermissionsFragment : Fragment() {
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
@@ -102,6 +106,7 @@ class PermissionsFragment : Fragment() {
             }
         }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (hasPermissions(requireContext())) {
@@ -111,6 +116,7 @@ class PermissionsFragment : Fragment() {
     }
 }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun navigateToCamera() {
         if (hasPermissions(requireContext())) {
             lifecycleScope.launchWhenStarted {
@@ -118,7 +124,7 @@ class PermissionsFragment : Fragment() {
                     requireActivity(),
                     R.id.fragment_container
                 ).navigate(
-                    R.id.action_permissions_to_camera
+                    R.id.Analytics_fragment
                 )
             }
         } else {
@@ -135,6 +141,7 @@ class PermissionsFragment : Fragment() {
     companion object {
 
         /** Convenience method used to check if all permissions required by this app are granted */
+        @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         fun hasPermissions(context: Context) = PERMISSIONS_REQUIRED.all {
             ContextCompat.checkSelfPermission(
                 context,

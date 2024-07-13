@@ -183,7 +183,7 @@ class CameraFragment : Fragment() {
         super.onResume()
         if (!PermissionsFragment.hasPermissions(requireContext())) {
             Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                .navigate(R.id.action_camera_to_permissions)
+                .navigate(R.id.Analytics_fragment)
         }
     }
 
