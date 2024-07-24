@@ -1,201 +1,206 @@
 package com.imnexerio.eyeris.fragments
 
-import android.annotation.SuppressLint
-import android.content.res.Configuration
+
+//import androidx.fragment.app.Fragment
+//
+//
+//
+//class SettingsFragment : Fragment() {
+//
+//
+//    private val TAG = "SettingsFragment"
+//
+//
+//
+//
+//
+//
+//}
+
+//import android.content.Context
+//import android.content.SharedPreferences
+//import android.os.Bundle
+//import android.view.LayoutInflater
+//import android.view.View
+//import android.view.ViewGroup
+//import android.widget.TextView
+//import androidx.appcompat.widget.AppCompatImageButton
+//import androidx.fragment.app.Fragment
+//import com.imnexerio.eyeris.R
+//
+//class SettingsFragment : Fragment() {
+//
+//    private val TAG = "SettingsFragment"
+//    private lateinit var sharedPreferences: SharedPreferences
+//
+//    private lateinit var detectionThresholdValue: TextView
+//    private lateinit var trackingThresholdValue: TextView
+//    private lateinit var presenceThresholdValue: TextView
+//    private lateinit var maxFacesValue: TextView
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+//        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+//
+//        detectionThresholdValue = view.findViewById(R.id.detection_threshold_value)
+//        trackingThresholdValue = view.findViewById(R.id.tracking_threshold_value)
+//        presenceThresholdValue = view.findViewById(R.id.presence_threshold_value)
+//
+//        loadSettings()
+//
+//        view.findViewById<AppCompatImageButton>(R.id.detection_threshold_minus).setOnClickListener {
+//            updateValue(detectionThresholdValue, -1)
+//        }
+//        view.findViewById<AppCompatImageButton>(R.id.detection_threshold_plus).setOnClickListener {
+//            updateValue(detectionThresholdValue, 1)
+//        }
+//        view.findViewById<AppCompatImageButton>(R.id.tracking_threshold_minus).setOnClickListener {
+//            updateValue(trackingThresholdValue, -1)
+//        }
+//        view.findViewById<AppCompatImageButton>(R.id.tracking_threshold_plus).setOnClickListener {
+//            updateValue(trackingThresholdValue, 1)
+//        }
+//        view.findViewById<AppCompatImageButton>(R.id.presence_threshold_minus).setOnClickListener {
+//            updateValue(presenceThresholdValue, -1)
+//        }
+//        view.findViewById<AppCompatImageButton>(R.id.presence_threshold_plus).setOnClickListener {
+//            updateValue(presenceThresholdValue, 1)
+//        }
+//
+//        return view
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        saveSettings()
+//    }
+//
+//    private fun updateValue(textView: TextView, delta: Int) {
+//        val currentValue = textView.text.toString().toInt()
+//        textView.text = (currentValue + delta).toString()
+//    }
+//
+//    private fun saveSettings() {
+//        with(sharedPreferences.edit()) {
+//            putInt("detection_threshold", detectionThresholdValue.text.toString().toInt())
+//            putInt("tracking_threshold", trackingThresholdValue.text.toString().toInt())
+//            putInt("presence_threshold", presenceThresholdValue.text.toString().toInt())
+//            apply()
+//        }
+//    }
+//
+//    private fun loadSettings() {
+//        detectionThresholdValue.text = sharedPreferences.getInt("detection_threshold", 0).toString()
+//        trackingThresholdValue.text = sharedPreferences.getInt("tracking_threshold", 0).toString()
+//        presenceThresholdValue.text = sharedPreferences.getInt("presence_threshold", 0).toString()
+//
+//    }
+//}
+
+
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
-import androidx.camera.core.Preview
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.camera.core.Camera
-import androidx.camera.core.AspectRatio
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_DRAGGING
-import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE
-import androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_SETTLING
-import androidx.viewpager2.widget.ViewPager2.ScrollState
-import com.google.mediapipe.tasks.vision.core.RunningMode
-import com.imnexerio.eyeris.FaceLandmarkerHelper
-import com.imnexerio.eyeris.MainViewModel
-import com.imnexerio.eyeris.databinding.FragmentSettingsBinding
-import java.util.Locale
-import java.util.Optional
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
-import kotlin.jvm.optionals.toList
-import kotlin.math.roundToInt
-
+import com.imnexerio.eyeris.R
 
 class SettingsFragment : Fragment() {
 
-    private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var fragmentCameraBinding: FragmentSettingsBinding
-    private lateinit var faceLandmarkerHelper: FaceLandmarkerHelper
-    private lateinit var backgroundExecutor: ExecutorService
     private val TAG = "SettingsFragment"
+    private lateinit var sharedPreferences: SharedPreferences
+
+    private lateinit var detectionThresholdValue: TextView
+    private lateinit var trackingThresholdValue: TextView
+    private lateinit var presenceThresholdValue: TextView
+    private lateinit var spinnerDelegate: Spinner
+
+    private val MIN_CONFIDENCE = 0.2f
+    private val MAX_CONFIDENCE = 0.8f
+    private val STEP = 0.1f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentCameraBinding = FragmentSettingsBinding.inflate(inflater, container, false)
-        return fragmentCameraBinding.root
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+
+        detectionThresholdValue = view.findViewById(R.id.detection_threshold_value)
+        trackingThresholdValue = view.findViewById(R.id.tracking_threshold_value)
+        presenceThresholdValue = view.findViewById(R.id.presence_threshold_value)
+        spinnerDelegate = view.findViewById(R.id.spinner_delegate)
+
+        loadSettings()
+
+        view.findViewById<AppCompatImageButton>(R.id.detection_threshold_minus).setOnClickListener {
+            updateValue(detectionThresholdValue, -STEP)
+        }
+        view.findViewById<AppCompatImageButton>(R.id.detection_threshold_plus).setOnClickListener {
+            updateValue(detectionThresholdValue, STEP)
+        }
+        view.findViewById<AppCompatImageButton>(R.id.tracking_threshold_minus).setOnClickListener {
+            updateValue(trackingThresholdValue, -STEP)
+        }
+        view.findViewById<AppCompatImageButton>(R.id.tracking_threshold_plus).setOnClickListener {
+            updateValue(trackingThresholdValue, STEP)
+        }
+        view.findViewById<AppCompatImageButton>(R.id.presence_threshold_minus).setOnClickListener {
+            updateValue(presenceThresholdValue, -STEP)
+        }
+        view.findViewById<AppCompatImageButton>(R.id.presence_threshold_plus).setOnClickListener {
+            updateValue(presenceThresholdValue, STEP)
+        }
+
+        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initBottomSheetControls()
+    override fun onPause() {
+        super.onPause()
+        saveSettings()
     }
 
-    private fun initBottomSheetControls() {
-        // init bottom sheet settings
-        fragmentCameraBinding.maxFacesValue.text =
-            viewModel.currentMaxFaces.toString()
-        fragmentCameraBinding.detectionThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinFaceDetectionConfidence
-            )
-        fragmentCameraBinding.trackingThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinFaceTrackingConfidence
-            )
-        fragmentCameraBinding.presenceThresholdValue.text =
-            String.format(
-                Locale.US, "%.2f", viewModel.currentMinFacePresenceConfidence
-            )
-
-        // When clicked, lower face detection score threshold floor
-        fragmentCameraBinding.detectionThresholdMinus.setOnClickListener {
-            if (faceLandmarkerHelper.minFaceDetectionConfidence >= 0.2) {
-                faceLandmarkerHelper.minFaceDetectionConfidence -= 0.1f
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise face detection score threshold floor
-        fragmentCameraBinding.detectionThresholdPlus.setOnClickListener {
-            if (faceLandmarkerHelper.minFaceDetectionConfidence <= 0.8) {
-                faceLandmarkerHelper.minFaceDetectionConfidence += 0.1f
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, lower face tracking score threshold floor
-        fragmentCameraBinding.trackingThresholdMinus.setOnClickListener {
-            if (faceLandmarkerHelper.minFaceTrackingConfidence >= 0.2) {
-                faceLandmarkerHelper.minFaceTrackingConfidence -= 0.1f
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise face tracking score threshold floor
-        fragmentCameraBinding.trackingThresholdPlus.setOnClickListener {
-            if (faceLandmarkerHelper.minFaceTrackingConfidence <= 0.8) {
-                faceLandmarkerHelper.minFaceTrackingConfidence += 0.1f
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, lower face presence score threshold floor
-        fragmentCameraBinding.presenceThresholdMinus.setOnClickListener {
-            if (faceLandmarkerHelper.minFacePresenceConfidence >= 0.2) {
-                faceLandmarkerHelper.minFacePresenceConfidence -= 0.1f
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, raise face presence score threshold floor
-        fragmentCameraBinding.presenceThresholdPlus.setOnClickListener {
-            if (faceLandmarkerHelper.minFacePresenceConfidence <= 0.8) {
-                faceLandmarkerHelper.minFacePresenceConfidence += 0.1f
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, reduce the number of faces that can be detected at a
-        // time
-        fragmentCameraBinding.maxFacesMinus.setOnClickListener {
-            if (faceLandmarkerHelper.maxNumFaces > 1) {
-                faceLandmarkerHelper.maxNumFaces--
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, increase the number of faces that can be detected
-        // at a time
-        fragmentCameraBinding.maxFacesPlus.setOnClickListener {
-            if (faceLandmarkerHelper.maxNumFaces < 2) {
-                faceLandmarkerHelper.maxNumFaces++
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, change the underlying hardware used for inference.
-        // Current options are CPU and GPU
-        fragmentCameraBinding.spinnerDelegate.setSelection(
-            viewModel.currentDelegate, false
-        )
-        fragmentCameraBinding.spinnerDelegate.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long
-                ) {
-                    try {
-                        faceLandmarkerHelper.currentDelegate = p2
-                        updateControlsUi()
-                    } catch(e: UninitializedPropertyAccessException) {
-                        Log.e(TAG, "FaceLandmarkerHelper has not been initialized yet.")
-                    }
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    /* no op */
-                }
-            }
+    private fun updateValue(textView: TextView, delta: Float) {
+        val currentValue = textView.text.toString().toFloat()
+        val newValue = (currentValue + delta).coerceIn(MIN_CONFIDENCE, MAX_CONFIDENCE)
+        textView.text = String.format("%.1f", newValue)
     }
 
-    private fun updateControlsUi() {
-        fragmentCameraBinding.maxFacesValue.text =
-            faceLandmarkerHelper.maxNumFaces.toString()
-        fragmentCameraBinding.detectionThresholdValue.text =
-            String.format(
-                Locale.US,
-                "%.2f",
-                faceLandmarkerHelper.minFaceDetectionConfidence
-            )
-        fragmentCameraBinding.trackingThresholdValue.text =
-            String.format(
-                Locale.US,
-                "%.2f",
-                faceLandmarkerHelper.minFaceTrackingConfidence
-            )
-        fragmentCameraBinding.presenceThresholdValue.text =
-            String.format(
-                Locale.US,
-                "%.2f",
-                faceLandmarkerHelper.minFacePresenceConfidence
-            )
-
-        // Needs to be cleared instead of reinitialized because the GPU
-        // delegate needs to be initialized on the thread using it when applicable
-        backgroundExecutor.execute {
-            faceLandmarkerHelper.clearFaceLandmarker()
-            faceLandmarkerHelper.setupFaceLandmarker()
+    private fun saveSettings() {
+        with(sharedPreferences.edit()) {
+            putFloat("detection_threshold", detectionThresholdValue.text.toString().toFloat())
+            putFloat("tracking_threshold", trackingThresholdValue.text.toString().toFloat())
+            putFloat("presence_threshold", presenceThresholdValue.text.toString().toFloat())
+            apply()
         }
-//        fragmentCameraBinding.overlay.clear()
+        saveSpinnerValue()
     }
 
+    private fun loadSettings() {
+        detectionThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("detection_threshold", MIN_CONFIDENCE))
+        trackingThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("tracking_threshold", MIN_CONFIDENCE))
+        presenceThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("presence_threshold", MIN_CONFIDENCE))
+        loadSpinnerValue()
+    }
 
+    private fun saveSpinnerValue() {
+        val selectedPosition = spinnerDelegate.selectedItemPosition
+        with(sharedPreferences.edit()) {
+            putInt("spinner_delegate", selectedPosition)
+            apply()
+        }
+    }
+
+    private fun loadSpinnerValue() {
+        val selectedPosition = sharedPreferences.getInt("spinner_delegate", 0)
+        spinnerDelegate.setSelection(selectedPosition)
+    }
 }

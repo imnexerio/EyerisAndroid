@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
@@ -68,17 +69,36 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         startDataCollectionTimer()
 
         backgroundExecutor = Executors.newSingleThreadExecutor()
+
         backgroundExecutor.execute {
+            val minFaceDetectionConfidence = getStoredValue("detection_threshold", FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE)
+            val minFaceTrackingConfidence = getStoredValue("tracking_threshold", FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE)
+            val minFacePresenceConfidence = getStoredValue("presence_threshold", FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE)
+            val currentDelegate = getStoredIntValue("spinner_delegate", FaceLandmarkerHelper.DELEGATE_CPU)
+
             faceLandmarkerHelper = FaceLandmarkerHelper(
                 context = this,
                 runningMode = RunningMode.LIVE_STREAM,
-                minFaceDetectionConfidence = 0.5f,
-                minFaceTrackingConfidence = 0.5f,
-                minFacePresenceConfidence = 0.5f,
+                minFaceDetectionConfidence = minFaceDetectionConfidence,
+                minFaceTrackingConfidence = minFaceTrackingConfidence,
+                minFacePresenceConfidence = minFacePresenceConfidence,
                 maxNumFaces = 1,
-                currentDelegate = FaceLandmarkerHelper.DELEGATE_CPU,
+                currentDelegate = currentDelegate,
                 faceLandmarkerHelperListener = this
             )
+
+            Log.i(TAG, "FaceLandmarkerHelper created, minFaceDetectionConfidence: $minFaceDetectionConfidence, minFaceTrackingConfidence: $minFaceTrackingConfidence, minFacePresenceConfidence: $minFacePresenceConfidence")
+//        backgroundExecutor.execute {
+//            faceLandmarkerHelper = FaceLandmarkerHelper(
+//                context = this,
+//                runningMode = RunningMode.LIVE_STREAM,
+//                minFaceDetectionConfidence = 0.5f,
+//                minFaceTrackingConfidence = 0.5f,
+//                minFacePresenceConfidence = 0.5f,
+//                maxNumFaces = 1,
+//                currentDelegate = FaceLandmarkerHelper.DELEGATE_CPU,
+//                faceLandmarkerHelperListener = this
+//            )
             setUpCamera()
         }
 
@@ -307,5 +327,14 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         override fun getLifecycle(): Lifecycle {
             return lifecycleRegistry
         }
+    }
+    private fun getStoredValue(key: String, defaultValue: Float): Float {
+        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        return sharedPreferences.getFloat(key, defaultValue)
+    }
+
+    private fun getStoredIntValue(key: String, defaultValue: Int): Int {
+        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt(key, defaultValue)
     }
 }
