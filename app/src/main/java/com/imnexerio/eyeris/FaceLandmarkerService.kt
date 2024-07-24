@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
@@ -29,271 +28,6 @@ import java.util.Timer
 import java.util.TimerTask
 
 
-
-//class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener {
-//
-//    companion object {
-//        private const val TAG = "EyerisService"
-//        private const val CHANNEL_ID = "EyerisServiceChannel"
-//        private const val NOTIFICATION_ID = 1
-//
-//        lateinit var faceLandmarkerHelper: FaceLandmarkerHelper
-//        private var cameraFacing = CameraSelector.LENS_FACING_FRONT
-//
-//        fun analyzeImage(imageProxy: ImageProxy) {
-//            faceLandmarkerHelper.detectLiveStream(
-//                imageProxy = imageProxy,
-//                isFrontCamera = cameraFacing == CameraSelector.LENS_FACING_FRONT
-//            )
-//        }
-//    }
-//
-//    private lateinit var backgroundExecutor: ExecutorService
-//    private var imageAnalyzer: ImageAnalysis? = null
-//    private var cameraProvider: ProcessCameraProvider? = null
-//    private lateinit var lifecycleOwner: ServiceLifecycleOwner
-//
-//    private lateinit var databaseHelper: BlinkDatabaseHelper
-//    private var timer: Timer? = null
-//    private var lefteyeopencount = 0
-//    private var righteyeopencount = 0
-//    private var lefteyeclosedcount = 0
-//    private var righteyeclosedcount = 0
-//
-//    override fun onCreate() {
-//        super.onCreate()
-//        databaseHelper = BlinkDatabaseHelper(this)
-//        createNotificationChannel()
-//        startForegroundService()
-//        startDataCollectionTimer()
-//
-//        backgroundExecutor = Executors.newSingleThreadExecutor()
-//        backgroundExecutor.execute {
-//            faceLandmarkerHelper = FaceLandmarkerHelper(
-//                context = this,
-//                runningMode = RunningMode.LIVE_STREAM,
-//                minFaceDetectionConfidence = 0.5f,
-//                minFaceTrackingConfidence = 0.5f,
-//                minFacePresenceConfidence = 0.5f,
-//                maxNumFaces = 1,
-//                currentDelegate = FaceLandmarkerHelper.DELEGATE_CPU,
-//                faceLandmarkerHelperListener = this
-//            )
-//            setUpCamera()
-//        }
-//
-//        lifecycleOwner = ServiceLifecycleOwner()
-//        lifecycleOwner.lifecycleRegistry.currentState = Lifecycle.State.STARTED
-//    }
-//
-//    private fun createNotificationChannel() {
-//        val serviceChannel = NotificationChannel(
-//            CHANNEL_ID,
-//            "Eyeris Service Channel",
-//            NotificationManager.IMPORTANCE_DEFAULT
-//        )
-//        val manager = getSystemService(NotificationManager::class.java)
-//        manager.createNotificationChannel(serviceChannel)
-//    }
-//
-//    private fun startForegroundService() {
-//        val notification: Notification = createNotification(true)
-//        startForeground(NOTIFICATION_ID, notification)
-//    }
-//
-//    private fun createNotification(isCameraActive: Boolean): Notification {
-//        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle("Eyeris Service")
-//            .setContentText("Detecting blinks in background 😊")
-//            .setSmallIcon(R.mipmap.ic_launcher_round)
-//
-//        if (isCameraActive) {
-//            builder.addAction(stopCameraAction)
-//        } else {
-//            builder.addAction(startCameraAction)
-//        }
-//
-//        return builder.build()
-//    }
-//
-//    private val stopCameraAction: NotificationCompat.Action
-//        get() {
-//            val intent = Intent(this, FaceLandmarkerService::class.java).apply {
-//                action = "ACTION_STOP_CAMERA"
-//            }
-//            val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-//            return NotificationCompat.Action.Builder(R.drawable.baseline_pause_24, "Stop", pendingIntent).build()
-//        }
-//
-//    private val startCameraAction: NotificationCompat.Action
-//        get() {
-//            val intent = Intent(this, FaceLandmarkerService::class.java).apply {
-//                action = "ACTION_START_CAMERA"
-//            }
-//            val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-//            return NotificationCompat.Action.Builder(R.drawable.baseline_play_arrow_24, "Start", pendingIntent).build()
-//        }
-//
-//    private fun updateNotification(isCameraActive: Boolean) {
-//        val notificationManager = getSystemService(NotificationManager::class.java) as NotificationManager
-//        val notification = createNotification(isCameraActive)
-//        notificationManager.notify(NOTIFICATION_ID, notification)
-//    }
-//
-//    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-//        when (intent?.action) {
-//            "ACTION_STOP_CAMERA" -> {
-//                stopCamera()
-//                updateNotification(false)
-//            }
-//            "ACTION_START_CAMERA" -> {
-//                startCamera()
-//                updateNotification(true)
-//            }
-//        }
-//        return START_NOT_STICKY
-//    }
-//
-//    private fun startCamera() {
-//        if (!::backgroundExecutor.isInitialized || backgroundExecutor.isShutdown) {
-//            backgroundExecutor = Executors.newSingleThreadExecutor()
-//        }
-//        setUpCamera()
-//    }
-//
-//    private fun stopCamera() {
-//        cameraProvider?.unbindAll()
-//        if (::backgroundExecutor.isInitialized) {
-//            backgroundExecutor.shutdownNow()
-//        }
-//        stopSelf()
-//    }
-//
-//    private fun setUpCamera() {
-//        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-//        cameraProviderFuture.addListener({
-//            cameraProvider = cameraProviderFuture.get()
-//            val cameraSelector = CameraSelector.Builder()
-//                .requireLensFacing(cameraFacing)
-//                .build()
-//
-//            imageAnalyzer = ImageAnalysis.Builder()
-//                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-//                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
-//                .build()
-//                .also {
-//                    it.setAnalyzer(backgroundExecutor, FaceLandmarkerService::analyzeImage)
-//                }
-//
-//            cameraProvider?.unbindAll()
-//            try {
-//                cameraProvider?.bindToLifecycle(
-//                    lifecycleOwner,
-//                    cameraSelector,
-//                    imageAnalyzer
-//                )
-//            } catch (exc: Exception) {
-//                Log.e(TAG, "Use case binding failed", exc)
-//            }
-//        }, ContextCompat.getMainExecutor(this))
-//    }
-//
-//    private fun startDataCollectionTimer() {
-//        timer = Timer()
-//        timer?.schedule(object : TimerTask() {
-//            override fun run() {
-//                storeBlinkData()
-//            }
-//        }, 1000, 1000) // 1 sec interval
-//    }
-//
-//
-//    private fun storeBlinkData() {
-//        val currentTime = System.currentTimeMillis()
-//        val db = databaseHelper.writableDatabase
-//        db.beginTransaction()
-//            try {
-//                val contentValues = ContentValues().apply {
-//                    put("timestamp", currentTime)
-//                    put("left_open", lefteyeopencount)
-//                    put("left_closed", lefteyeclosedcount)
-//                    put("right_open", righteyeopencount)
-//                    put("right_closed", righteyeclosedcount)
-//                }
-//                db.insert("blink_data", null, contentValues)
-//                db.setTransactionSuccessful()
-//            } catch (e: Exception) {
-//                Log.i(TAG, "Blink : some error occurred while storing data")
-//                Log.i(TAG, "Blink : $lefteyeopencount")
-//                Log.i(TAG, "Blink : $lefteyeclosedcount")
-//                Log.i(TAG, "Blink : $righteyeopencount")
-//                Log.i(TAG, "Blink : $righteyeclosedcount")
-//            } finally {
-//                db.endTransaction()
-//                Log.i(TAG, "Stored data")
-//                lefteyeopencount = 0
-//                lefteyeclosedcount = 0
-//                righteyeopencount = 0
-//                righteyeclosedcount = 0
-//
-//        }
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        timer?.cancel()
-//        stopCamera()
-//        storeBlinkData()
-//    }
-//
-//    override fun onResults(resultBundle: FaceLandmarkerHelper.ResultBundle) {
-//
-//        val faceBlendshapes = resultBundle.result.faceBlendshapes()?.get()?.get(0)
-//        val categories = listOf(faceBlendshapes?.get(9), faceBlendshapes?.get(10))
-//        Log.i(TAG, "categories : $categories")
-//        val leftBlinkScore = categories.get(0)?.score() ?: 0.0f
-//        val rightBlinkScore = categories.get(1)?.score() ?: 0.0f
-////        Log.i(TAG, "leftBlinkScore : $leftBlinkScore")
-////        Log.i(TAG, "rightBlinkScore : $rightBlinkScore")
-//
-//
-//        if(leftBlinkScore > 0.3) {
-//            lefteyeclosedcount++
-//        }
-//        else {
-//            lefteyeopencount++
-//        }
-//        if(rightBlinkScore > 0.3) {
-//            righteyeclosedcount++
-//        }
-//        else {
-//            righteyeopencount++
-//        }
-//
-//        OverlayManager.updateOverlay(
-//            resultBundle.result,
-//            resultBundle.inputImageHeight,
-//            resultBundle.inputImageWidth,
-//            RunningMode.LIVE_STREAM
-//        )
-////        Log.i(TAG, "Blink : $categories")
-//    }
-//
-//    override fun onBind(intent: Intent?): IBinder? {
-//        return null
-//    }
-//
-//    override fun onError(error: String, errorCode: Int) {
-//        Log.e(TAG, "Error: $error (Code: $errorCode)")
-//    }
-//
-//    class ServiceLifecycleOwner : LifecycleOwner {
-//        val lifecycleRegistry = LifecycleRegistry(this)
-//        override fun getLifecycle(): Lifecycle {
-//            return lifecycleRegistry
-//        }
-//    }
-//}
 
 class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener {
 
@@ -479,10 +213,10 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         db.beginTransaction()
         try {
             val totalBlinks = lefteyeclosedcount + righteyeclosedcount
-            if (totalBlinks < BLINK_RATE_THRESHOLD) {
-                triggerBlinkRateNotification()
-                triggerVibration()
-            }
+//            if (totalBlinks < BLINK_RATE_THRESHOLD) {
+//                triggerBlinkRateNotification()
+//                triggerVibration()
+//            }
 
             val contentValues = ContentValues().apply {
                 put("timestamp", currentTime)
@@ -509,20 +243,20 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         }
     }
 
-    private fun triggerBlinkRateNotification() {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Low Blink Rate Alert")
-            .setContentText("Your blink rate is below the normal threshold. Please take a break.")
-            .setSmallIcon(R.mipmap.ic_launcher_round)
-            .build()
-        notificationManager.notify(NOTIFICATION_ID + 1, notification)
-    }
+//    private fun triggerBlinkRateNotification() {
+//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+//            .setContentTitle("Low Blink Rate Alert")
+//            .setContentText("Your blink rate is below the normal threshold. Please take a break.")
+//            .setSmallIcon(R.mipmap.ic_launcher_round)
+//            .build()
+//        notificationManager.notify(NOTIFICATION_ID + 1, notification)
+//    }
 
-    private fun triggerVibration() {
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-    }
+//    private fun triggerVibration() {
+//        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+//        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
