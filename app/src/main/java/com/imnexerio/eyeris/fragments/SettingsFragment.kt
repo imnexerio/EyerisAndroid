@@ -1,112 +1,12 @@
 package com.imnexerio.eyeris.fragments
 
-
-//import androidx.fragment.app.Fragment
-//
-//
-//
-//class SettingsFragment : Fragment() {
-//
-//
-//    private val TAG = "SettingsFragment"
-//
-//
-//
-//
-//
-//
-//}
-
-//import android.content.Context
-//import android.content.SharedPreferences
-//import android.os.Bundle
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.TextView
-//import androidx.appcompat.widget.AppCompatImageButton
-//import androidx.fragment.app.Fragment
-//import com.imnexerio.eyeris.R
-//
-//class SettingsFragment : Fragment() {
-//
-//    private val TAG = "SettingsFragment"
-//    private lateinit var sharedPreferences: SharedPreferences
-//
-//    private lateinit var detectionThresholdValue: TextView
-//    private lateinit var trackingThresholdValue: TextView
-//    private lateinit var presenceThresholdValue: TextView
-//    private lateinit var maxFacesValue: TextView
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-//        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-//
-//        detectionThresholdValue = view.findViewById(R.id.detection_threshold_value)
-//        trackingThresholdValue = view.findViewById(R.id.tracking_threshold_value)
-//        presenceThresholdValue = view.findViewById(R.id.presence_threshold_value)
-//
-//        loadSettings()
-//
-//        view.findViewById<AppCompatImageButton>(R.id.detection_threshold_minus).setOnClickListener {
-//            updateValue(detectionThresholdValue, -1)
-//        }
-//        view.findViewById<AppCompatImageButton>(R.id.detection_threshold_plus).setOnClickListener {
-//            updateValue(detectionThresholdValue, 1)
-//        }
-//        view.findViewById<AppCompatImageButton>(R.id.tracking_threshold_minus).setOnClickListener {
-//            updateValue(trackingThresholdValue, -1)
-//        }
-//        view.findViewById<AppCompatImageButton>(R.id.tracking_threshold_plus).setOnClickListener {
-//            updateValue(trackingThresholdValue, 1)
-//        }
-//        view.findViewById<AppCompatImageButton>(R.id.presence_threshold_minus).setOnClickListener {
-//            updateValue(presenceThresholdValue, -1)
-//        }
-//        view.findViewById<AppCompatImageButton>(R.id.presence_threshold_plus).setOnClickListener {
-//            updateValue(presenceThresholdValue, 1)
-//        }
-//
-//        return view
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        saveSettings()
-//    }
-//
-//    private fun updateValue(textView: TextView, delta: Int) {
-//        val currentValue = textView.text.toString().toInt()
-//        textView.text = (currentValue + delta).toString()
-//    }
-//
-//    private fun saveSettings() {
-//        with(sharedPreferences.edit()) {
-//            putInt("detection_threshold", detectionThresholdValue.text.toString().toInt())
-//            putInt("tracking_threshold", trackingThresholdValue.text.toString().toInt())
-//            putInt("presence_threshold", presenceThresholdValue.text.toString().toInt())
-//            apply()
-//        }
-//    }
-//
-//    private fun loadSettings() {
-//        detectionThresholdValue.text = sharedPreferences.getInt("detection_threshold", 0).toString()
-//        trackingThresholdValue.text = sharedPreferences.getInt("tracking_threshold", 0).toString()
-//        presenceThresholdValue.text = sharedPreferences.getInt("presence_threshold", 0).toString()
-//
-//    }
-//}
-
-
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
@@ -160,6 +60,10 @@ class SettingsFragment : Fragment() {
             updateValue(presenceThresholdValue, STEP)
         }
 
+        view.findViewById<Button>(R.id.restore_defaults_button).setOnClickListener {
+            restoreDefaults()
+        }
+
         return view
     }
 
@@ -202,5 +106,13 @@ class SettingsFragment : Fragment() {
     private fun loadSpinnerValue() {
         val selectedPosition = sharedPreferences.getInt("spinner_delegate", 0)
         spinnerDelegate.setSelection(selectedPosition)
+    }
+
+    private fun restoreDefaults() {
+        detectionThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
+        trackingThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
+        presenceThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
+        spinnerDelegate.setSelection(0)
+        saveSettings()
     }
 }

@@ -87,7 +87,7 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
                 faceLandmarkerHelperListener = this
             )
 
-            Log.i(TAG, "FaceLandmarkerHelper created, minFaceDetectionConfidence: $minFaceDetectionConfidence, minFaceTrackingConfidence: $minFaceTrackingConfidence, minFacePresenceConfidence: $minFacePresenceConfidence")
+//            Log.i(TAG, "FaceLandmarkerHelper created, minFaceDetectionConfidence: $minFaceDetectionConfidence, minFaceTrackingConfidence: $minFaceTrackingConfidence, minFacePresenceConfidence: $minFacePresenceConfidence")
 //        backgroundExecutor.execute {
 //            faceLandmarkerHelper = FaceLandmarkerHelper(
 //                context = this,
@@ -289,7 +289,7 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 
         val faceBlendshapes = resultBundle.result.faceBlendshapes()?.get()?.get(0)
         val categories = listOf(faceBlendshapes?.get(9), faceBlendshapes?.get(10))
-        Log.i(TAG, "categories : $categories")
+//        Log.i(TAG, "categories : $categories")
         val leftBlinkScore = categories.get(0)?.score() ?: 0.0f
         val rightBlinkScore = categories.get(1)?.score() ?: 0.0f
 
