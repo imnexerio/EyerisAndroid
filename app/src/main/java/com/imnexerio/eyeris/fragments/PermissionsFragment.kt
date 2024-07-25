@@ -2,6 +2,7 @@ package com.imnexerio.eyeris.fragments
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -80,8 +81,16 @@ import com.imnexerio.eyeris.R
 //}
 
 
+//
+
+import com.imnexerio.eyeris.FaceLandmarkerService
+
+
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA, Manifest.permission.POST_NOTIFICATIONS)
+private val PERMISSIONS_REQUIRED = arrayOf(
+    Manifest.permission.CAMERA,
+    Manifest.permission.POST_NOTIFICATIONS
+)
 
 class PermissionsFragment : Fragment() {
 
@@ -96,6 +105,7 @@ class PermissionsFragment : Fragment() {
                     "All permissions granted",
                     Toast.LENGTH_LONG
                 ).show()
+                startFaceLandmarkerService()
                 navigateToCamera()
             } else {
                 Toast.makeText(
@@ -108,13 +118,14 @@ class PermissionsFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    if (hasPermissions(requireContext())) {
-        navigateToCamera()
-    } else {
-        requestPermissionLauncher.launch(PERMISSIONS_REQUIRED)
+        super.onCreate(savedInstanceState)
+        if (hasPermissions(requireContext())) {
+            startFaceLandmarkerService()
+            navigateToCamera()
+        } else {
+            requestPermissionLauncher.launch(PERMISSIONS_REQUIRED)
+        }
     }
-}
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun navigateToCamera() {
@@ -137,9 +148,11 @@ class PermissionsFragment : Fragment() {
         }
     }
 
+    private fun startFaceLandmarkerService() {
+        context?.startForegroundService(Intent(context, FaceLandmarkerService::class.java))
+    }
 
     companion object {
-
         /** Convenience method used to check if all permissions required by this app are granted */
         @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         fun hasPermissions(context: Context) = PERMISSIONS_REQUIRED.all {

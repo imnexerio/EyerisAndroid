@@ -1,15 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:paddingStart="16dp"
+android:paddingEnd="16dp"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_marginBottom="30dp">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginBottom="@dimen/bottom_sheet_default_row_margin"
+        android:id="@+id/blink_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Settings will be shown here" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Blink Reminder"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_blink_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blink Reminder"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_blink_reminder_vibration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blink Reminder Vibration"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_run_blink_reminder_screen_off"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Run Blink Reminder when screen is off"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_turn_screen_on_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Turn screen on while showing notification"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_show_on_screen_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show on screen alert"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:id="@+id/blink_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:layout_marginBottom="@dimen/bottom_sheet_default_row_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blink Interval"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+            <TextView
+                android:id="@+id/blink_interval_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="5 minutes"
+                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:id="@+id/notification_sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:layout_marginBottom="@dimen/bottom_sheet_default_row_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification Tone"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+
+            <Spinner
+                android:id="@+id/notification_sound_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/blink_settings"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detection Settings"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+        <!-- ML confidence threshold adjustment row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_face_detection_confidence_threshold"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/detection_threshold_minus"
+                    android:layout_width="@dimen/bottom_sheet_control_btn_size"
+                    android:layout_height="@dimen/bottom_sheet_control_btn_size"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus" />
+                <TextView
+                    android:id="@+id/detection_threshold_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/detection_threshold_plus"
+                    android:layout_width="@dimen/bottom_sheet_control_btn_size"
+                    android:layout_height="@dimen/bottom_sheet_control_btn_size"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_face_tracking_confidence_threshold"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/tracking_threshold_minus"
+                    android:layout_width="@dimen/bottom_sheet_control_btn_size"
+                    android:layout_height="@dimen/bottom_sheet_control_btn_size"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus" />
+                <TextView
+                    android:id="@+id/tracking_threshold_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/tracking_threshold_plus"
+                    android:layout_width="@dimen/bottom_sheet_control_btn_size"
+                    android:layout_height="@dimen/bottom_sheet_control_btn_size"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_face_presence_confidence_threshold"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/presence_threshold_minus"
+                    android:layout_width="@dimen/bottom_sheet_control_btn_size"
+                    android:layout_height="@dimen/bottom_sheet_control_btn_size"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus" />
+                <TextView
+                    android:id="@+id/presence_threshold_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/presence_threshold_plus"
+                    android:layout_width="@dimen/bottom_sheet_control_btn_size"
+                    android:layout_height="@dimen/bottom_sheet_control_btn_size"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus" />
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <!-- Delegate selection row -->
+        <RelativeLayout
+            android:id="@+id/delegate_selection1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:layout_marginBottom="@dimen/bottom_sheet_default_row_margin"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_delegate"
+
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_delegate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:entries="@array/delegate_spinner_titles"
+                android:minWidth="@dimen/bottom_sheet_spinner_delegate_min_width"
+                android:spinnerMode="dropdown"
+                />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/restore_defaults_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:text="Restore Defaults" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>

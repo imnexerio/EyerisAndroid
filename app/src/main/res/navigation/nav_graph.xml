@@ -9,8 +9,8 @@
         android:name="com.imnexerio.eyeris.fragments.PermissionsFragment"
         android:label="PermissionsFragment">
         <action
-            android:id="@+id/action_permissions_fragment_to_Analytics_fragment"
-            app:destination="@id/Analytics_fragment" />
+            android:id="@+id/action_permissions_fragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
 
     <fragment
@@ -21,11 +21,7 @@
     <fragment
         android:id="@+id/Analytics_fragment"
         android:name="com.imnexerio.eyeris.fragments.Analyticsfragment"
-        android:label="AnalyticsFragment">
-        <action
-            android:id="@+id/action_Analytics_fragment_to_permissions_fragment"
-            app:destination="@id/permissions_fragment" />
-    </fragment>
+        android:label="AnalyticsFragment"/>
 
     <fragment
         android:id="@+id/Exercises_fragment"
@@ -38,5 +34,9 @@
         android:name="com.imnexerio.eyeris.fragments.SettingsFragment"
         android:label="SettingsFragment">
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.imnexerio.eyeris.MainActivity"
+        android:label="MainActivity" />
 
 </navigation>
