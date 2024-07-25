@@ -37,10 +37,6 @@
     <activity
         android:id="@+id/mainActivity"
         android:name="com.imnexerio.eyeris.MainActivity"
-        android:label="MainActivity" >
-    <action
-        android:id="@+id/action_mainActivity_to_analytics_fragment"
-        app:destination="@id/Analytics_fragment" />
-    </activity>
+        android:label="MainActivity" />
 
 </navigation>

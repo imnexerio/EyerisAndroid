@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         stopFaceLandmarkerService()
     }
 
+
 //    private fun startFaceLandmarkerService() {
 //        val serviceIntent = Intent(this, FaceLandmarkerService::class.java).apply {
 //            action = "ACTION_START_CAMERA"

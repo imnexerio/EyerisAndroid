@@ -6,22 +6,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.imnexerio.eyeris.R
 
 class SettingsFragment : Fragment() {
 
-    private val TAG = "SettingsFragment"
     private lateinit var sharedPreferences: SharedPreferences
+
+    private lateinit var blinkIntervalValue: TextView
+    private val blinkIntervalOptions = arrayOf("1 minutes", "2 minutes", "4 minutes", "5 minutes", "10 minutes")
 
     private lateinit var detectionThresholdValue: TextView
     private lateinit var trackingThresholdValue: TextView
     private lateinit var presenceThresholdValue: TextView
     private lateinit var spinnerDelegate: Spinner
+
+    private lateinit var switchBlinkReminder: MaterialSwitch
+    private lateinit var switchBlinkReminderVibration: MaterialSwitch
+    private lateinit var switchRunBlinkReminderScreenOff: MaterialSwitch
+    private lateinit var switchTurnScreenOnNotification: MaterialSwitch
+    private lateinit var switchShowOnScreenAlert: MaterialSwitch
+    private lateinit var notificationSoundSpinner: Spinner
 
     private val MIN_CONFIDENCE = 0.2f
     private val MAX_CONFIDENCE = 0.8f
@@ -34,12 +47,23 @@ class SettingsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
         sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
 
+        blinkIntervalValue = view.findViewById(R.id.blink_interval_value)
         detectionThresholdValue = view.findViewById(R.id.detection_threshold_value)
         trackingThresholdValue = view.findViewById(R.id.tracking_threshold_value)
         presenceThresholdValue = view.findViewById(R.id.presence_threshold_value)
         spinnerDelegate = view.findViewById(R.id.spinner_delegate)
 
-        loadSettings()
+        switchBlinkReminder = view.findViewById(R.id.switch_blink_reminder)
+        switchBlinkReminderVibration = view.findViewById(R.id.switch_blink_reminder_vibration)
+        switchRunBlinkReminderScreenOff = view.findViewById(R.id.switch_run_blink_reminder_screen_off)
+        switchTurnScreenOnNotification = view.findViewById(R.id.switch_turn_screen_on_notification)
+        switchShowOnScreenAlert = view.findViewById(R.id.switch_show_on_screen_alert)
+
+        notificationSoundSpinner = view.findViewById(R.id.notification_sound_spinner)
+
+        blinkIntervalValue.setOnClickListener {
+            showBlinkIntervalDialog()
+        }
 
         view.findViewById<AppCompatImageButton>(R.id.detection_threshold_minus).setOnClickListener {
             updateValue(detectionThresholdValue, -STEP)
@@ -64,6 +88,7 @@ class SettingsFragment : Fragment() {
             restoreDefaults()
         }
 
+        loadSettings()
         return view
     }
 
@@ -83,29 +108,42 @@ class SettingsFragment : Fragment() {
             putFloat("detection_threshold", detectionThresholdValue.text.toString().toFloat())
             putFloat("tracking_threshold", trackingThresholdValue.text.toString().toFloat())
             putFloat("presence_threshold", presenceThresholdValue.text.toString().toFloat())
+            putInt("spinner_delegate", spinnerDelegate.selectedItemPosition)
+
+            putBoolean("switch_blink_reminder", switchBlinkReminder.isChecked)
+            putBoolean("switch_blink_reminder_vibration", switchBlinkReminderVibration.isChecked)
+            putBoolean("switch_run_blink_reminder_screen_off", switchRunBlinkReminderScreenOff.isChecked)
+            putBoolean("switch_turn_screen_on_notification", switchTurnScreenOnNotification.isChecked)
+            putBoolean("switch_show_on_screen_alert", switchShowOnScreenAlert.isChecked)
+            putString("blink_interval", blinkIntervalValue.text.toString())
+
+
+            // Save the selected notification sound
+            putInt("notification_sound", notificationSoundSpinner.selectedItemPosition)
+
             apply()
         }
-        saveSpinnerValue()
     }
 
     private fun loadSettings() {
         detectionThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("detection_threshold", MIN_CONFIDENCE))
         trackingThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("tracking_threshold", MIN_CONFIDENCE))
         presenceThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("presence_threshold", MIN_CONFIDENCE))
-        loadSpinnerValue()
-    }
+        spinnerDelegate.setSelection(sharedPreferences.getInt("spinner_delegate", 0))
 
-    private fun saveSpinnerValue() {
-        val selectedPosition = spinnerDelegate.selectedItemPosition
-        with(sharedPreferences.edit()) {
-            putInt("spinner_delegate", selectedPosition)
-            apply()
-        }
-    }
+        switchBlinkReminder.isChecked = sharedPreferences.getBoolean("switch_blink_reminder", false)
+        switchBlinkReminderVibration.isChecked = sharedPreferences.getBoolean("switch_blink_reminder_vibration", false)
+        switchRunBlinkReminderScreenOff.isChecked = sharedPreferences.getBoolean("switch_run_blink_reminder_screen_off", false)
+        switchTurnScreenOnNotification.isChecked = sharedPreferences.getBoolean("switch_turn_screen_on_notification", false)
+        switchShowOnScreenAlert.isChecked = sharedPreferences.getBoolean("switch_show_on_screen_alert", false)
+        blinkIntervalValue.text = sharedPreferences.getString("blink_interval", "5 minutes")
 
-    private fun loadSpinnerValue() {
-        val selectedPosition = sharedPreferences.getInt("spinner_delegate", 0)
-        spinnerDelegate.setSelection(selectedPosition)
+        // Set up the notification sound spinner
+        val notificationTones = resources.getStringArray(R.array.notification_tones)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, notificationTones)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        notificationSoundSpinner.adapter = adapter
+        notificationSoundSpinner.setSelection(sharedPreferences.getInt("notification_sound", 0))
     }
 
     private fun restoreDefaults() {
@@ -113,6 +151,42 @@ class SettingsFragment : Fragment() {
         trackingThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
         presenceThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
         spinnerDelegate.setSelection(0)
+
+        switchBlinkReminder.isChecked = false
+        switchBlinkReminderVibration.isChecked = false
+        switchRunBlinkReminderScreenOff.isChecked = false
+        switchTurnScreenOnNotification.isChecked = false
+        switchShowOnScreenAlert.isChecked = false
+        blinkIntervalValue.text = "5 minutes"
+
+        // Reset the notification sound spinner
+        notificationSoundSpinner.setSelection(0)
+
         saveSettings()
+    }
+
+    private fun showBlinkIntervalDialog() {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.blink_interval_dialog, null)
+        val seekBar = dialogView.findViewById<SeekBar>(R.id.blink_interval_seekbar)
+        val intervalValue = dialogView.findViewById<TextView>(R.id.blink_interval_value)
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setPositiveButton("OK") { _, _ ->
+                blinkIntervalValue.text = intervalValue.text
+            }
+            .setNegativeButton("Cancel", null)
+            .create()
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                intervalValue.text = blinkIntervalOptions[progress]
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        dialog.show()
     }
 }
