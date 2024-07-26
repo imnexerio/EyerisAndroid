@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="purple_200">#FFD7CCC8</color>
-    <color name="purple_500">#FF8D6E63</color>
-    <color name="purple_700">#FF4E342E</color>
-    <color name="teal_200">#FFB2DFDB</color>
-    <color name="teal_700">#FF004D40</color>
-    <color name="black">#FF1B1B1B</color>
-    <color name="white">#FFFAFAFA</color>
-    <!-- Additional colors for night mode -->
-    <color name="night_black">#FFFFFFFF</color>
-    <color name="night_white">#FF000000</color>
 
-    <color name="camera_black">#FFFFFFFF</color>
-    <color name="camera_white">@color/gray_900</color>
+        <!-- Dark Theme Colors -->
+        <color name="light_primary">#BB86FC</color>
+        <color name="light_primary_variant">#3700B3</color>
+        <color name="light_on_primary">#000000</color>
+        <color name="light_secondary">#03DAC6</color>
+        <color name="light_secondary_variant">#018786</color>
+        <color name="light_on_secondary">#000000</color>
 
-    <!-- Ocean Breeze -->
-    <color name="blue_500">#1E88E5</color> <!-- Darker Medium Blue -->
-    <color name="blue_700">#1565C0</color> <!-- Darker Dark Blue -->
-    <color name="green_200">#81C784</color> <!-- Darker Light Green -->
-    <color name="green_700">#2E7D32</color> <!-- Darker Dark Green -->
+        <!-- Ocean Breeze Colors -->
+        <color name="ocean_breeze_primary">#004D40</color>
+        <color name="ocean_breeze_primary_variant">#00251A</color>
+        <color name="ocean_breeze_on_primary">#FFFFFF</color>
+        <color name="ocean_breeze_secondary">#00796B</color>
+        <color name="ocean_breeze_secondary_variant">#004D40</color>
+        <color name="ocean_breeze_on_secondary">#FFFFFF</color>
 
-    <!-- Sunset Glow -->
-    <color name="orange_500">#FB8C00</color> <!-- Darker Medium Orange -->
-    <color name="orange_700">#EF6C00</color> <!-- Darker Dark Orange -->
-    <color name="yellow_200">#FFF176</color> <!-- Darker Light Yellow -->
-    <color name="yellow_700">#FBC02D</color> <!-- Darker Dark Yellow -->
+        <!-- Sunset Glow Colors -->
+        <color name="sunset_glow_primary">#BF360C</color>
+        <color name="sunset_glow_primary_variant">#870000</color>
+        <color name="sunset_glow_on_primary">#FFFFFF</color>
+        <color name="sunset_glow_secondary">#FF5722</color>
+        <color name="sunset_glow_secondary_variant">#BF360C</color>
+        <color name="sunset_glow_on_secondary">#FFFFFF</color>
 
-    <!-- Forest Whisper -->
-    <color name="green_500">#388E3C</color> <!-- Darker Medium Green -->
-    <color name="brown_200">#A1887F</color> <!-- Darker Light Brown -->
-    <color name="brown_700">#5D4037</color> <!-- Darker Dark Brown -->
+        <!-- Forest Whisper Colors -->
+        <color name="forest_whisper_primary">#1B5E20</color>
+        <color name="forest_whisper_primary_variant">#004D40</color>
+        <color name="forest_whisper_on_primary">#FFFFFF</color>
+        <color name="forest_whisper_secondary">#388E3C</color>
+        <color name="forest_whisper_secondary_variant">#1B5E20</color>
+        <color name="forest_whisper_on_secondary">#FFFFFF</color>
 
-    <!-- Royal Elegance -->
-    <color name="gold_200">#FFB300</color> <!-- Darker Light Gold -->
-    <color name="gold_700">#FFA000</color> <!-- Darker Dark Gold -->
+        <!-- Royal Elegance Colors -->
+        <color name="royal_elegance_primary">#311B92</color>
+        <color name="royal_elegance_primary_variant">#000063</color>
+        <color name="royal_elegance_on_primary">#FFFFFF</color>
+        <color name="royal_elegance_secondary">#673AB7</color>
+        <color name="royal_elegance_secondary_variant">#311B92</color>
+        <color name="royal_elegance_on_secondary">#FFFFFF</color>
 
-    <!-- Urban Night -->
-    <color name="gray_800">#303030</color> <!-- Darker Dark Gray -->
-    <color name="gray_900">#1C1C1C</color> <!-- Darker Darker Gray -->
-    <color name="blue_200">#81D4FA</color> <!-- Darker Light Blue -->
+        <!-- Urban Night Colors -->
+        <color name="urban_night_primary">#000000</color>
+        <color name="urban_night_primary_variant">#1C1C1C</color>
+        <color name="urban_night_on_primary">#FFFFFF</color>
+        <color name="urban_night_secondary">#424242</color>
+        <color name="urban_night_secondary_variant">#212121</color>
+        <color name="urban_night_on_secondary">#FFFFFF</color>
+
+
+        <color name="camera_black">#FFFFFFFF</color>
+    <color name="camera_white">#1C1C1C</color>
 </resources>
 
 

@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.imnexerio.eyeris.R
@@ -50,8 +51,9 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
+//        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        // SettingsFragment
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         themeMode = view.findViewById(R.id.theme_mode)
         themeSpinner = view.findViewById(R.id.theme_spinner)
 

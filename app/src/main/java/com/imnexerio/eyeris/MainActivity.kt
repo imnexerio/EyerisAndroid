@@ -2,6 +2,7 @@ package com.imnexerio.eyeris
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,24 +16,26 @@ import com.imnexerio.eyeris.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
     private var isCameraRunning = false
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
 //        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 //        setContentView(activityMainBinding.root)
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val themePosition = sharedPreferences.getInt("selected_theme", 0)
         val darkMode = sharedPreferences.getBoolean("dark_mode", false)
+        Log.i("MainActivity", "Dark mode: $darkMode")
         Log.i("MainActivity", "Theme position: $themePosition")
         when (themePosition) {
-            0 -> setTheme(if (darkMode) R.style.AppTheme else R.style.AppTheme)
-            1 -> setTheme(if (darkMode) R.style.AppTheme_OceanBreeze else R.style.AppTheme_OceanBreeze)
-            2 -> setTheme(if (darkMode) R.style.AppTheme_SunsetGlow else R.style.AppTheme_SunsetGlow)
-            3 -> setTheme(if (darkMode) R.style.AppTheme_ForestWhisper else R.style.AppTheme_ForestWhisper)
-            4 -> setTheme(if (darkMode) R.style.AppTheme_UrbanNight else R.style.AppTheme_UrbanNight)
-            5 -> setTheme(if (darkMode) R.style.AppTheme_RoyalElegance else R.style.AppTheme_RoyalElegance)
-        }
+                0 -> setTheme(if (darkMode) R.style.AppTheme_Dark else R.style.AppTheme_Light)
+                1 -> setTheme(if (darkMode) R.style.AppTheme_OceanBreeze_Dark else R.style.AppTheme_OceanBreeze_Light)
+                2 -> setTheme(if (darkMode) R.style.AppTheme_SunsetGlow_Dark else R.style.AppTheme_SunsetGlow_Light)
+                3 -> setTheme(if (darkMode) R.style.AppTheme_ForestWhisper_Dark else R.style.AppTheme_ForestWhisper_Light)
+                4 -> setTheme(if (darkMode) R.style.AppTheme_UrbanNight_Dark else R.style.AppTheme_UrbanNight_Light)
+                5 -> setTheme(if (darkMode) R.style.AppTheme_RoyalElegance_Dark else R.style.AppTheme_RoyalElegance_Light)
+            }
 
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
