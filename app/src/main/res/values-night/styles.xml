@@ -35,7 +35,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme -->
-    <style name="AppTheme_Dark" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme_Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/light_primary</item>
         <item name="colorPrimaryVariant">@color/light_primary_variant</item>
         <item name="colorOnPrimary">@color/light_on_primary</item>
@@ -46,7 +46,7 @@
     </style>
 
     <!-- Ocean Breeze Theme -->
-    <style name="AppTheme.OceanBreeze_Dark" parent="AppTheme_Dark">
+    <style name="AppTheme.OceanBreeze_Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/ocean_breeze_primary</item>
         <item name="colorPrimaryVariant">@color/ocean_breeze_primary_variant</item>
         <item name="colorOnPrimary">@color/ocean_breeze_on_primary</item>
@@ -56,7 +56,7 @@
     </style>
 
     <!-- Sunset Glow Theme -->
-    <style name="AppTheme.SunsetGlow_Dark" parent="AppTheme_Dark">
+    <style name="AppTheme.SunsetGlow_Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/sunset_glow_primary</item>
         <item name="colorPrimaryVariant">@color/sunset_glow_primary_variant</item>
         <item name="colorOnPrimary">@color/sunset_glow_on_primary</item>
@@ -66,7 +66,7 @@
     </style>
 
     <!-- Forest Whisper Theme -->
-    <style name="AppTheme.ForestWhisper_Dark" parent="AppTheme_Dark">
+    <style name="AppTheme.ForestWhisper_Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/forest_whisper_primary</item>
         <item name="colorPrimaryVariant">@color/forest_whisper_primary_variant</item>
         <item name="colorOnPrimary">@color/forest_whisper_on_primary</item>
@@ -76,7 +76,7 @@
     </style>
 
     <!-- Royal Elegance Theme -->
-    <style name="AppTheme.RoyalElegance_Dark" parent="AppTheme_Dark">
+    <style name="AppTheme.RoyalElegance_Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/royal_elegance_primary</item>
         <item name="colorPrimaryVariant">@color/royal_elegance_primary_variant</item>
         <item name="colorOnPrimary">@color/royal_elegance_on_primary</item>
@@ -86,7 +86,7 @@
     </style>
 
     <!-- Urban Night Theme -->
-    <style name="AppTheme.UrbanNight_Dark" parent="AppTheme_Dark">
+    <style name="AppTheme.UrbanNight_Dark" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/urban_night_primary</item>
         <item name="colorPrimaryVariant">@color/urban_night_primary_variant</item>
         <item name="colorOnPrimary">@color/urban_night_on_primary</item>

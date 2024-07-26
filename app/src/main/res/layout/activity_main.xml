@@ -32,8 +32,7 @@
     android:background="@drawable/oval_background"
     app:menu="@menu/menu_bottom_nav"
     app:labelVisibilityMode="unlabeled"
-    android:layout_margin="10dp"
-/>
+    android:layout_margin="10dp" />
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
