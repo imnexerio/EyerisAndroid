@@ -8,7 +8,7 @@
         <color name="light_on_primary">#000000</color>
         <color name="light_secondary">#03DAC6</color>
         <color name="light_secondary_variant">#018786</color>
-        <color name="light_on_secondary">#000000</color>
+        <color name="light_on_secondary">#FFFFFf</color>
 
         <!-- Ocean Breeze Colors -->
         <color name="ocean_breeze_primary">#004D40</color>

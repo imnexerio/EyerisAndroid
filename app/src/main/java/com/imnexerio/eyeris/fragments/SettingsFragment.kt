@@ -31,7 +31,6 @@ class SettingsFragment : Fragment() {
     private lateinit var presenceThresholdValue: TextView
     private lateinit var spinnerDelegate: Spinner
 
-    private lateinit var themeMode: MaterialSwitch
     private lateinit var themeSpinner: Spinner
 
     private lateinit var switchBlinkReminder: MaterialSwitch
@@ -55,7 +54,6 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        themeMode = view.findViewById(R.id.theme_mode)
         themeSpinner = view.findViewById(R.id.theme_spinner)
 
         switchBlinkReminder = view.findViewById(R.id.switch_blink_reminder)
@@ -121,7 +119,7 @@ class SettingsFragment : Fragment() {
             putFloat("presence_threshold", presenceThresholdValue.text.toString().toFloat())
             putInt("spinner_delegate", spinnerDelegate.selectedItemPosition)
 
-            putBoolean("dark_mode", themeMode.isChecked)
+
             putInt("selected_theme", themeSpinner.selectedItemPosition)
 
             putBoolean("switch_blink_reminder", switchBlinkReminder.isChecked)
@@ -146,7 +144,6 @@ class SettingsFragment : Fragment() {
         presenceThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("presence_threshold", MIN_CONFIDENCE))
         spinnerDelegate.setSelection(sharedPreferences.getInt("spinner_delegate", 0))
 
-        themeMode.isChecked = sharedPreferences.getBoolean("dark_mode", true)
 
         val themeSelection =resources.getStringArray(R.array.theme_options)
         val themeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, themeSelection)
@@ -176,7 +173,6 @@ class SettingsFragment : Fragment() {
         presenceThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
         spinnerDelegate.setSelection(0)
 
-        themeMode.isChecked = true
         themeSpinner.setSelection(0)
 
         switchBlinkReminder.isChecked = true

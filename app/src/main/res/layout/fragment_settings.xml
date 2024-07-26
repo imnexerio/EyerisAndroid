@@ -30,16 +30,16 @@ android:layout_marginBottom="30dp">
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/theme_mode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dark Mode"
-            android:textAppearance="?attr/textAppearanceTitleMedium" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+<!--        <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--            android:id="@+id/theme_mode"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Dark Mode"-->
+<!--            android:textAppearance="?attr/textAppearanceTitleMedium" />-->
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="?android:attr/listDivider" />-->
 
 
 
@@ -51,7 +51,7 @@ android:layout_marginBottom="30dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Theme"
+                android:text="Theme"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
 

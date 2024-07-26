@@ -22,14 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val themePosition = sharedPreferences.getInt("selected_theme", 0)
-        val darkMode = sharedPreferences.getBoolean("dark_mode", true)
         when (themePosition) {
-                0 -> setTheme(if (darkMode) R.style.AppTheme_Dark else R.style.AppTheme_Light)
-                1 -> setTheme(if (darkMode) R.style.AppTheme_OceanBreeze_Dark else R.style.AppTheme_OceanBreeze_Light)
-                2 -> setTheme(if (darkMode) R.style.AppTheme_SunsetGlow_Dark else R.style.AppTheme_SunsetGlow_Light)
-                3 -> setTheme(if (darkMode) R.style.AppTheme_ForestWhisper_Dark else R.style.AppTheme_ForestWhisper_Light)
-                4 -> setTheme(if (darkMode) R.style.AppTheme_UrbanNight_Dark else R.style.AppTheme_UrbanNight_Light)
-                5 -> setTheme(if (darkMode) R.style.AppTheme_RoyalElegance_Dark else R.style.AppTheme_RoyalElegance_Light)
+                0 -> setTheme( R.style.AppTheme )
+                1 -> setTheme( R.style.AppTheme_OceanBreeze )
+                2 -> setTheme( R.style.AppTheme_SunsetGlow )
+                3 -> setTheme( R.style.AppTheme_ForestWhisper )
+                4 -> setTheme( R.style.AppTheme_UrbanNight )
+                5 -> setTheme( R.style.AppTheme_RoyalElegance )
             }
 
         super.onCreate(savedInstanceState)
