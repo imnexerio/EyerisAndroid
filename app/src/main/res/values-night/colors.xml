@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="purple_200">#FFD7CCC8</color>
+    <color name="purple_500">#FF8D6E63</color>
+    <color name="purple_700">#FF4E342E</color>
+    <color name="teal_200">#FFB2DFDB</color>
+    <color name="teal_700">#FF004D40</color>
+    <color name="black">#FF1B1B1B</color>
+    <color name="white">#FFFAFAFA</color>
+    <!-- Additional colors for night mode -->
+    <color name="night_black">#FFFFFFFF</color>
+    <color name="night_white">#FF000000</color>
+
+    <color name="camera_black">#FFFFFFFF</color>
+    <color name="camera_white">@color/gray_900</color>
+
+    <!-- Ocean Breeze -->
+    <color name="blue_500">#1E88E5</color> <!-- Darker Medium Blue -->
+    <color name="blue_700">#1565C0</color> <!-- Darker Dark Blue -->
+    <color name="green_200">#81C784</color> <!-- Darker Light Green -->
+    <color name="green_700">#2E7D32</color> <!-- Darker Dark Green -->
+
+    <!-- Sunset Glow -->
+    <color name="orange_500">#FB8C00</color> <!-- Darker Medium Orange -->
+    <color name="orange_700">#EF6C00</color> <!-- Darker Dark Orange -->
+    <color name="yellow_200">#FFF176</color> <!-- Darker Light Yellow -->
+    <color name="yellow_700">#FBC02D</color> <!-- Darker Dark Yellow -->
+
+    <!-- Forest Whisper -->
+    <color name="green_500">#388E3C</color> <!-- Darker Medium Green -->
+    <color name="brown_200">#A1887F</color> <!-- Darker Light Brown -->
+    <color name="brown_700">#5D4037</color> <!-- Darker Dark Brown -->
+
+    <!-- Royal Elegance -->
+    <color name="gold_200">#FFB300</color> <!-- Darker Light Gold -->
+    <color name="gold_700">#FFA000</color> <!-- Darker Dark Gold -->
+
+    <!-- Urban Night -->
+    <color name="gray_800">#303030</color> <!-- Darker Dark Gray -->
+    <color name="gray_900">#1C1C1C</color> <!-- Darker Darker Gray -->
+    <color name="blue_200">#81D4FA</color> <!-- Darker Light Blue -->
+</resources>
+
+

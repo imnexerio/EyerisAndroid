@@ -138,11 +138,11 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     }
 
     private fun initPaints() {
-        linePaint.color = ContextCompat.getColor(context!!, R.color.cool_blue)
+        linePaint.color = ContextCompat.getColor(context!!, R.color.teal_200)
         linePaint.strokeWidth = LANDMARK_STROKE_WIDTH
         linePaint.style = Paint.Style.STROKE
 
-        pointPaint.color = ContextCompat.getColor(context, R.color.aesthetic_purple)
+        pointPaint.color = ContextCompat.getColor(context, R.color.purple_500)
         pointPaint.strokeWidth = LANDMARK_STROKE_WIDTH
         pointPaint.style = Paint.Style.FILL
     }

@@ -1,32 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<resources>-->
+<!--    <color name="purple_200">#FFF1F8E9</color>-->
+<!--    <color name="purple_500">#FF558B2F</color>-->
+<!--    <color name="purple_700">#FF33691E</color>-->
+<!--    <color name="teal_200">#FFB2DFDB</color>-->
+<!--    <color name="teal_700">#FF004D40</color>-->
+<!--    <color name="black">#FF1C1C1C</color>-->
+<!--    <color name="white">#FFFFF9C4</color>-->
+
+
+
+<!--    <color name="cool_blue">#4A90E2</color>-->
+<!--    <color name="aesthetic_purple">#8E44AD</color>-->
+
+
+<!--    <color name="mp_color_primary">#007F8B</color>-->
+<!--    <color name="mp_color_primary_variant">#12B5CB</color>-->
+<!--    <color name="mp_color_primary_dark">#00676D</color>-->
+<!--    <color name="mp_color_secondary">#FBBC04</color>-->
+<!--    <color name="mp_color_secondary_variant">#F9AB00</color>-->
+<!--    <color name="mp_color_error">#B00020</color>-->
+<!--    <color name="toolbar_background">#E0E0E0</color>-->
+<!--    <color name="ic_launcher_background">#FFFFFF</color>-->
+<!--    <color name="bottom_sheet_background">#EEEEEE</color>-->
+<!--    <color name="bottom_sheet_text_color">@android:color/black</color>-->
+<!--    <color name="icActive">#FFFFFFFF</color>-->
+<!--    <color name="icFocused">#DDFFFFFF</color>-->
+<!--    <color name="icPressed">#AAFFFFFF</color>-->
+
+
+<!--</resources>-->
+
 <resources>
-    <color name="purple_200">#FFF1F8E9</color>
-    <color name="purple_500">#FF558B2F</color>
-    <color name="purple_700">#FF33691E</color>
-    <color name="teal_200">#FFB2DFDB</color>
-    <color name="teal_700">#FF004D40</color>
-    <color name="black">#FF1C1C1C</color>
-    <color name="white">#FFFFF9C4</color>
+    <color name="purple_200">#E1BEE7</color> <!-- Light Lavender -->
+    <color name="purple_500">#BA68C8</color> <!-- Medium Lavender -->
+    <color name="purple_700">#8E24AA</color> <!-- Dark Lavender -->
+    <color name="teal_200">#B2EBF2</color> <!-- Light Cyan -->
+    <color name="teal_700">#00796B</color> <!-- Dark Cyan -->
+    <color name="black">#212121</color> <!-- Dark Gray -->
+    <color name="white">#FFFFFF</color> <!-- White -->
 
+    <!-- Ocean Breeze -->
+    <color name="blue_500">#2196F3</color> <!-- Medium Blue -->
+    <color name="blue_700">#1976D2</color> <!-- Dark Blue -->
+    <color name="green_200">#A5D6A7</color> <!-- Light Green -->
+    <color name="green_700">#388E3C</color> <!-- Dark Green -->
 
+    <!-- Sunset Glow -->
+    <color name="orange_500">#FF9800</color> <!-- Medium Orange -->
+    <color name="orange_700">#F57C00</color> <!-- Dark Orange -->
+    <color name="yellow_200">#FFF59D</color> <!-- Light Yellow -->
+    <color name="yellow_700">#FBC02D</color> <!-- Dark Yellow -->
 
-    <color name="cool_blue">#4A90E2</color>
-    <color name="aesthetic_purple">#8E44AD</color>
+    <!-- Forest Whisper -->
+    <color name="green_500">#4CAF50</color> <!-- Medium Green -->
+    <color name="brown_200">#BCAAA4</color> <!-- Light Brown -->
+    <color name="brown_700">#795548</color> <!-- Dark Brown -->
 
+    <!-- Royal Elegance -->
+    <color name="gold_200">#FFD700</color> <!-- Light Gold -->
+    <color name="gold_700">#FFC107</color> <!-- Dark Gold -->
 
-    <color name="mp_color_primary">#007F8B</color>
-    <color name="mp_color_primary_variant">#12B5CB</color>
-    <color name="mp_color_primary_dark">#00676D</color>
-    <color name="mp_color_secondary">#FBBC04</color>
-    <color name="mp_color_secondary_variant">#F9AB00</color>
-    <color name="mp_color_error">#B00020</color>
-    <color name="toolbar_background">#E0E0E0</color>
-    <color name="ic_launcher_background">#FFFFFF</color>
-    <color name="bottom_sheet_background">#EEEEEE</color>
-    <color name="bottom_sheet_text_color">@android:color/black</color>
-    <color name="icActive">#FFFFFFFF</color>
-    <color name="icFocused">#DDFFFFFF</color>
-    <color name="icPressed">#AAFFFFFF</color>
+    <!-- Urban Night -->
+    <color name="gray_800">#424242</color> <!-- Dark Gray -->
+    <color name="gray_900">#212121</color> <!-- Darker Gray -->
+    <color name="blue_200">#90CAF9</color> <!-- Light Blue -->
 
+    <color name="night_black">#FF000000</color>
+    <color name="night_white">#FFFFFFFF</color>
 
+    <color name="camera_black">@color/gray_900</color>
+    <color name="camera_white">#FFFFFFFF</color>
 </resources>
