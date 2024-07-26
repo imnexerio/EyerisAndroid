@@ -19,15 +19,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(activityMainBinding.root)
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val themePosition = sharedPreferences.getInt("selected_theme", 0)
-        val darkMode = sharedPreferences.getBoolean("dark_mode", false)
-        Log.i("MainActivity", "Dark mode: $darkMode")
-        Log.i("MainActivity", "Theme position: $themePosition")
+        val darkMode = sharedPreferences.getBoolean("dark_mode", true)
         when (themePosition) {
                 0 -> setTheme(if (darkMode) R.style.AppTheme_Dark else R.style.AppTheme_Light)
                 1 -> setTheme(if (darkMode) R.style.AppTheme_OceanBreeze_Dark else R.style.AppTheme_OceanBreeze_Light)
@@ -38,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
+
 
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)

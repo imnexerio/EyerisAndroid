@@ -46,13 +46,14 @@ class SettingsFragment : Fragment() {
     private val MAX_CONFIDENCE = 0.8f
     private val STEP = 0.1f
 
-    override fun onCreateView(
+     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-//        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        // SettingsFragment
+        return inflater.inflate(R.layout.fragment_settings, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         themeMode = view.findViewById(R.id.theme_mode)
         themeSpinner = view.findViewById(R.id.theme_spinner)
@@ -100,7 +101,6 @@ class SettingsFragment : Fragment() {
         }
 
         loadSettings()
-        return view
     }
 
     override fun onPause() {
@@ -146,7 +146,7 @@ class SettingsFragment : Fragment() {
         presenceThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("presence_threshold", MIN_CONFIDENCE))
         spinnerDelegate.setSelection(sharedPreferences.getInt("spinner_delegate", 0))
 
-        themeMode.isChecked = sharedPreferences.getBoolean("dark_mode", false)
+        themeMode.isChecked = sharedPreferences.getBoolean("dark_mode", true)
 
         val themeSelection =resources.getStringArray(R.array.theme_options)
         val themeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, themeSelection)
@@ -155,12 +155,12 @@ class SettingsFragment : Fragment() {
         themeSpinner.setSelection(sharedPreferences.getInt("selected_theme", 0))
 
 
-        switchBlinkReminder.isChecked = sharedPreferences.getBoolean("switch_blink_reminder", false)
+        switchBlinkReminder.isChecked = sharedPreferences.getBoolean("switch_blink_reminder", true)
         switchBlinkReminderVibration.isChecked = sharedPreferences.getBoolean("switch_blink_reminder_vibration", false)
         switchRunBlinkReminderScreenOff.isChecked = sharedPreferences.getBoolean("switch_run_blink_reminder_screen_off", false)
         switchTurnScreenOnNotification.isChecked = sharedPreferences.getBoolean("switch_turn_screen_on_notification", false)
         switchShowOnScreenAlert.isChecked = sharedPreferences.getBoolean("switch_show_on_screen_alert", false)
-        blinkIntervalValue.text = sharedPreferences.getString("blink_interval", "5 minutes")
+        blinkIntervalValue.text = sharedPreferences.getString("blink_interval", "1 minutes")
 
         // Set up the notification sound spinner
         val notificationTones = resources.getStringArray(R.array.notification_tones)
@@ -176,10 +176,10 @@ class SettingsFragment : Fragment() {
         presenceThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
         spinnerDelegate.setSelection(0)
 
-        themeMode.isChecked = false
+        themeMode.isChecked = true
         themeSpinner.setSelection(0)
 
-        switchBlinkReminder.isChecked = false
+        switchBlinkReminder.isChecked = true
         switchBlinkReminderVibration.isChecked = false
         switchRunBlinkReminderScreenOff.isChecked = false
         switchTurnScreenOnNotification.isChecked = false
