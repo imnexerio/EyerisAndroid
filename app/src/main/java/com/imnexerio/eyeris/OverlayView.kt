@@ -59,9 +59,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
 
             if (faceLandmarkerResult.faceBlendshapes().isPresent) {
                 faceLandmarkerResult.faceBlendshapes().get().forEach {
-                    it.forEach {
-                        Log.e(TAG, it.displayName() + " " + it.score())
-                    }
+//                    it.forEach {
+//                        Log.e(TAG, it.displayName() + " " + it.score())
+//                    }
                 }
             }
 

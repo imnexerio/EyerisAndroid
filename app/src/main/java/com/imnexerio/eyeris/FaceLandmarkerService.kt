@@ -110,7 +110,7 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         val serviceChannel = NotificationChannel(
             CHANNEL_ID,
             "Eyeris Service Channel",
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_HIGH
         )
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(serviceChannel)
@@ -126,6 +126,7 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             .setContentTitle("Eyeris Service")
             .setContentText("Detecting blinks in background 😊")
             .setSmallIcon(R.mipmap.ic_launcher_round)
+
 
         if (isCameraActive) {
             builder.addAction(stopCameraAction)
@@ -280,9 +281,16 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 
     override fun onDestroy() {
         super.onDestroy()
+//        Log.i(TAG, "Service destroyed")
         timer?.cancel()
         stopCamera()
         storeBlinkData()
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+//        Log.i(TAG, "Task removed")
+        onDestroy()
     }
 
     override fun onResults(resultBundle: FaceLandmarkerHelper.ResultBundle) {

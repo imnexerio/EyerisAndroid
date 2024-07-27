@@ -89,4 +89,6 @@ dependencies {
 
     implementation 'com.github.Taosif7:RingChartLib:1.0.0'
 
+    implementation 'com.airbnb.android:lottie:6.4.1'
+
 }

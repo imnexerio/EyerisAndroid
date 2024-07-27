@@ -46,11 +46,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        stopFaceLandmarkerService()
-    }
-
 
 //    private fun startFaceLandmarkerService() {
 //        val serviceIntent = Intent(this, FaceLandmarkerService::class.java).apply {
@@ -61,14 +56,7 @@ class MainActivity : AppCompatActivity() {
 //
 //    }
 
-        private fun stopFaceLandmarkerService() {
-        val serviceIntent = Intent(this, FaceLandmarkerService::class.java).apply {
-            action = "ACTION_STOP_CAMERA"
-        }
-        ContextCompat.startForegroundService(this, serviceIntent)
-        isCameraRunning = false
 
-    }
 
 }
 

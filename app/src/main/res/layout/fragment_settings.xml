@@ -30,18 +30,6 @@ android:layout_marginBottom="30dp">
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
 
-<!--        <com.google.android.material.materialswitch.MaterialSwitch-->
-<!--            android:id="@+id/theme_mode"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Dark Mode"-->
-<!--            android:textAppearance="?attr/textAppearanceTitleMedium" />-->
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="?android:attr/listDivider" />-->
-
-
 
         <RelativeLayout
             android:layout_width="match_parent"

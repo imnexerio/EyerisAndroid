@@ -28,7 +28,6 @@
             android:name=".FaceLandmarkerService"
             android:exported="true"
             android:foregroundServiceType="camera"
-            android:process=":face_landmarker_process"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

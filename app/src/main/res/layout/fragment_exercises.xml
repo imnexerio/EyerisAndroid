@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ExercisesFragment">
+    android:background="#00FFFFFF"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:text="Coming Soon" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_rawRes="@raw/eye"
+        app:lottie_autoPlay="true"
+        android:layout_centerInParent="true"
+        android:id="@+id/lottieAnimationView"
+        app:lottie_loop="true"/>
 
-</FrameLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:padding="10dp"
+        android:text="Comming Soon"
+        android:backgroundTint="?attr/colorPrimary"
+        android:enabled="false"
+        />
+
+</RelativeLayout>
