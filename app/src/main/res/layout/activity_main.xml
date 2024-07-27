@@ -24,25 +24,15 @@
             app:navGraph="@navigation/nav_graph"
             tools:context=".MainActivity" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:background="@color/teal_700"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/menu_bottom_nav"
-
-            />
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/main_Landmark"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="117dp"-->
-<!--            android:layout_above="@id/navigation"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:clickable="true"-->
-<!--            app:srcCompat="@drawable/baseline_play_arrow_24" />-->
-
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/navigation"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/oval_background"
+    app:menu="@menu/menu_bottom_nav"
+    app:labelVisibilityMode="unlabeled"
+    android:layout_margin="10dp" />
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -13,9 +13,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.imnexerio.eyeris.R
+import java.nio.channels.Selector
 
 class SettingsFragment : Fragment() {
 
@@ -29,6 +31,8 @@ class SettingsFragment : Fragment() {
     private lateinit var presenceThresholdValue: TextView
     private lateinit var spinnerDelegate: Spinner
 
+    private lateinit var themeSpinner: Spinner
+
     private lateinit var switchBlinkReminder: MaterialSwitch
     private lateinit var switchBlinkReminderVibration: MaterialSwitch
     private lateinit var switchRunBlinkReminderScreenOff: MaterialSwitch
@@ -36,22 +40,21 @@ class SettingsFragment : Fragment() {
     private lateinit var switchShowOnScreenAlert: MaterialSwitch
     private lateinit var notificationSoundSpinner: Spinner
 
+
     private val MIN_CONFIDENCE = 0.2f
     private val MAX_CONFIDENCE = 0.8f
     private val STEP = 0.1f
 
-    override fun onCreateView(
+     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-        sharedPreferences = requireActivity().getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
-        blinkIntervalValue = view.findViewById(R.id.blink_interval_value)
-        detectionThresholdValue = view.findViewById(R.id.detection_threshold_value)
-        trackingThresholdValue = view.findViewById(R.id.tracking_threshold_value)
-        presenceThresholdValue = view.findViewById(R.id.presence_threshold_value)
-        spinnerDelegate = view.findViewById(R.id.spinner_delegate)
+        return inflater.inflate(R.layout.fragment_settings, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        themeSpinner = view.findViewById(R.id.theme_spinner)
 
         switchBlinkReminder = view.findViewById(R.id.switch_blink_reminder)
         switchBlinkReminderVibration = view.findViewById(R.id.switch_blink_reminder_vibration)
@@ -60,6 +63,13 @@ class SettingsFragment : Fragment() {
         switchShowOnScreenAlert = view.findViewById(R.id.switch_show_on_screen_alert)
 
         notificationSoundSpinner = view.findViewById(R.id.notification_sound_spinner)
+
+
+        blinkIntervalValue = view.findViewById(R.id.blink_interval_value)
+        detectionThresholdValue = view.findViewById(R.id.detection_threshold_value)
+        trackingThresholdValue = view.findViewById(R.id.tracking_threshold_value)
+        presenceThresholdValue = view.findViewById(R.id.presence_threshold_value)
+        spinnerDelegate = view.findViewById(R.id.spinner_delegate)
 
         blinkIntervalValue.setOnClickListener {
             showBlinkIntervalDialog()
@@ -89,7 +99,6 @@ class SettingsFragment : Fragment() {
         }
 
         loadSettings()
-        return view
     }
 
     override fun onPause() {
@@ -110,6 +119,9 @@ class SettingsFragment : Fragment() {
             putFloat("presence_threshold", presenceThresholdValue.text.toString().toFloat())
             putInt("spinner_delegate", spinnerDelegate.selectedItemPosition)
 
+
+            putInt("selected_theme", themeSpinner.selectedItemPosition)
+
             putBoolean("switch_blink_reminder", switchBlinkReminder.isChecked)
             putBoolean("switch_blink_reminder_vibration", switchBlinkReminderVibration.isChecked)
             putBoolean("switch_run_blink_reminder_screen_off", switchRunBlinkReminderScreenOff.isChecked)
@@ -121,6 +133,7 @@ class SettingsFragment : Fragment() {
             // Save the selected notification sound
             putInt("notification_sound", notificationSoundSpinner.selectedItemPosition)
 
+
             apply()
         }
     }
@@ -131,12 +144,20 @@ class SettingsFragment : Fragment() {
         presenceThresholdValue.text = String.format("%.1f", sharedPreferences.getFloat("presence_threshold", MIN_CONFIDENCE))
         spinnerDelegate.setSelection(sharedPreferences.getInt("spinner_delegate", 0))
 
-        switchBlinkReminder.isChecked = sharedPreferences.getBoolean("switch_blink_reminder", false)
+
+        val themeSelection =resources.getStringArray(R.array.theme_options)
+        val themeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, themeSelection)
+        themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        themeSpinner.adapter = themeAdapter
+        themeSpinner.setSelection(sharedPreferences.getInt("selected_theme", 0))
+
+
+        switchBlinkReminder.isChecked = sharedPreferences.getBoolean("switch_blink_reminder", true)
         switchBlinkReminderVibration.isChecked = sharedPreferences.getBoolean("switch_blink_reminder_vibration", false)
         switchRunBlinkReminderScreenOff.isChecked = sharedPreferences.getBoolean("switch_run_blink_reminder_screen_off", false)
         switchTurnScreenOnNotification.isChecked = sharedPreferences.getBoolean("switch_turn_screen_on_notification", false)
         switchShowOnScreenAlert.isChecked = sharedPreferences.getBoolean("switch_show_on_screen_alert", false)
-        blinkIntervalValue.text = sharedPreferences.getString("blink_interval", "5 minutes")
+        blinkIntervalValue.text = sharedPreferences.getString("blink_interval", "1 minutes")
 
         // Set up the notification sound spinner
         val notificationTones = resources.getStringArray(R.array.notification_tones)
@@ -152,12 +173,14 @@ class SettingsFragment : Fragment() {
         presenceThresholdValue.text = String.format("%.1f", MIN_CONFIDENCE)
         spinnerDelegate.setSelection(0)
 
-        switchBlinkReminder.isChecked = false
+        themeSpinner.setSelection(0)
+
+        switchBlinkReminder.isChecked = true
         switchBlinkReminderVibration.isChecked = false
         switchRunBlinkReminderScreenOff.isChecked = false
         switchTurnScreenOnNotification.isChecked = false
         switchShowOnScreenAlert.isChecked = false
-        blinkIntervalValue.text = "5 minutes"
+        blinkIntervalValue.text = "1 minutes"
 
         // Reset the notification sound spinner
         notificationSoundSpinner.setSelection(0)

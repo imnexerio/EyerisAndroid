@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Select Blink Interval"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:layout_marginBottom="8dp"
         android:textAppearance="?attr/textAppearanceTitleMedium" />
 
@@ -26,7 +27,7 @@
         android:id="@+id/blink_interval_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5 minutes"
+        android:text="1 minutes"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+        <!-- Dark Theme Colors -->
+        <color name="light_primary">#BB86FC</color>
+        <color name="light_primary_variant">#3700B3</color>
+        <color name="light_on_primary">#000000</color>
+        <color name="light_secondary">#03DAC6</color>
+        <color name="light_secondary_variant">#018786</color>
+        <color name="light_on_secondary">#FFFFFf</color>
+
+        <!-- Ocean Breeze Colors -->
+        <color name="ocean_breeze_primary">#004D40</color>
+        <color name="ocean_breeze_primary_variant">#00251A</color>
+        <color name="ocean_breeze_on_primary">#FFFFFF</color>
+        <color name="ocean_breeze_secondary">#00796B</color>
+        <color name="ocean_breeze_secondary_variant">#004D40</color>
+        <color name="ocean_breeze_on_secondary">#FFFFFF</color>
+
+        <!-- Sunset Glow Colors -->
+        <color name="sunset_glow_primary">#BF360C</color>
+        <color name="sunset_glow_primary_variant">#870000</color>
+        <color name="sunset_glow_on_primary">#FFFFFF</color>
+        <color name="sunset_glow_secondary">#FF5722</color>
+        <color name="sunset_glow_secondary_variant">#BF360C</color>
+        <color name="sunset_glow_on_secondary">#FFFFFF</color>
+
+        <!-- Forest Whisper Colors -->
+        <color name="forest_whisper_primary">#1B5E20</color>
+        <color name="forest_whisper_primary_variant">#004D40</color>
+        <color name="forest_whisper_on_primary">#FFFFFF</color>
+        <color name="forest_whisper_secondary">#388E3C</color>
+        <color name="forest_whisper_secondary_variant">#1B5E20</color>
+        <color name="forest_whisper_on_secondary">#FFFFFF</color>
+
+        <!-- Royal Elegance Colors -->
+        <color name="royal_elegance_primary">#311B92</color>
+        <color name="royal_elegance_primary_variant">#000063</color>
+        <color name="royal_elegance_on_primary">#FFFFFF</color>
+        <color name="royal_elegance_secondary">#673AB7</color>
+        <color name="royal_elegance_secondary_variant">#311B92</color>
+        <color name="royal_elegance_on_secondary">#FFFFFF</color>
+
+        <!-- Urban Night Colors -->
+        <color name="urban_night_primary">#000000</color>
+        <color name="urban_night_primary_variant">#1C1C1C</color>
+        <color name="urban_night_on_primary">#FFFFFF</color>
+        <color name="urban_night_secondary">#424242</color>
+        <color name="urban_night_secondary_variant">#212121</color>
+        <color name="urban_night_on_secondary">#FFFFFF</color>
+
+
+        <color name="camera_black">#FFFFFFFF</color>
+    <color name="camera_white">#1C1C1C</color>
+</resources>
+
+

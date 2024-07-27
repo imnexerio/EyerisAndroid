@@ -14,66 +14,17 @@
 
     <com.imnexerio.eyeris.OverlayView
         android:id="@+id/overlay"
+        android:background="@color/camera_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
     <ImageView
         android:id="@+id/app_logo"
-        android:background="#ffffff"
+        android:background="@color/camera_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher_round"
-
-     />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/FloatingActionFaceLandmark"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginBottom="?android:attr/actionBarSize"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:clickable="true"-->
-<!--        android:layout_gravity="bottom|start"-->
-<!--        app:srcCompat="@drawable/baseline_play_arrow_24" />-->
-
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/constraint_layout">-->
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/floatingActionOptions"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:layout_marginBottom="?android:attr/actionBarSize"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:clickable="true"-->
-<!--            android:layout_gravity="bottom|end"-->
-<!--            app:srcCompat="@drawable/baseline_expand_less_24"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="1.0"-->
-<!--            app:layout_constraintHorizontal_bias="1.0" />-->
-
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/PreviewButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="30dp"-->
-<!--            android:layout_marginBottom="?android:attr/actionBarSize"-->
-<!--            android:clickable="true"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/floatingActionOptions"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="1.0"-->
-<!--            app:layout_constraintHorizontal_bias="1.0"-->
-<!--            app:srcCompat="@drawable/baseline_preview_24" />-->
+        android:src="@drawable/ic_launcher_foreground"
+        app:tint="?attr/colorPrimary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/OverlayButton"
@@ -86,4 +37,4 @@
             app:srcCompat="@drawable/baseline_ac_unit_24" />
 
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

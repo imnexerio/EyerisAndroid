@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--<resources xmlns:tools="http://schemas.android.com/tools">-->
+<!--    &lt;!&ndash; Base application theme &ndash;&gt;-->
+<!--    <style name="AppTheme_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
+
+<!--    </style>-->
+
+<!--    &lt;!&ndash; Ocean Breeze Theme &ndash;&gt;-->
+<!--    <style name="AppTheme.OceanBreeze_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
+
+<!--    </style>-->
+
+<!--    &lt;!&ndash; Sunset Glow Theme &ndash;&gt;-->
+<!--    <style name="AppTheme.SunsetGlow_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
+
+<!--    </style>-->
+
+<!--    &lt;!&ndash; Forest Whisper Theme &ndash;&gt;-->
+<!--    <style name="AppTheme.ForestWhisper_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
+
+<!--    </style>-->
+
+<!--    &lt;!&ndash; Royal Elegance Theme &ndash;&gt;-->
+<!--    <style name="AppTheme.RoyalElegance_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
+
+<!--    </style>-->
+
+<!--    &lt;!&ndash; Urban Night Theme &ndash;&gt;-->
+<!--    <style name="AppTheme.UrbanNight_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
+
+<!--    </style>-->
+<!--</resources>-->
+
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorPrimaryVariant">@color/light_primary_variant</item>
+        <item name="colorOnPrimary">@color/light_on_primary</item>
+        <item name="colorSecondary">@color/light_secondary</item>
+        <item name="colorSecondaryVariant">@color/light_secondary_variant</item>
+        <item name="colorOnSecondary">@color/light_on_secondary</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Ocean Breeze Theme -->
+    <style name="AppTheme.OceanBreeze" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ocean_breeze_primary</item>
+        <item name="colorPrimaryVariant">@color/ocean_breeze_primary_variant</item>
+        <item name="colorOnPrimary">@color/ocean_breeze_on_primary</item>
+        <item name="colorSecondary">@color/ocean_breeze_secondary</item>
+        <item name="colorSecondaryVariant">@color/ocean_breeze_secondary_variant</item>
+        <item name="colorOnSecondary">@color/ocean_breeze_on_secondary</item>
+    </style>
+
+    <!-- Sunset Glow Theme -->
+    <style name="AppTheme.SunsetGlow" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/sunset_glow_primary</item>
+        <item name="colorPrimaryVariant">@color/sunset_glow_primary_variant</item>
+        <item name="colorOnPrimary">@color/sunset_glow_on_primary</item>
+        <item name="colorSecondary">@color/sunset_glow_secondary</item>
+        <item name="colorSecondaryVariant">@color/sunset_glow_secondary_variant</item>
+        <item name="colorOnSecondary">@color/sunset_glow_on_secondary</item>
+    </style>
+
+    <!-- Forest Whisper Theme -->
+    <style name="AppTheme.ForestWhisper" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/forest_whisper_primary</item>
+        <item name="colorPrimaryVariant">@color/forest_whisper_primary_variant</item>
+        <item name="colorOnPrimary">@color/forest_whisper_on_primary</item>
+        <item name="colorSecondary">@color/forest_whisper_secondary</item>
+        <item name="colorSecondaryVariant">@color/forest_whisper_secondary_variant</item>
+        <item name="colorOnSecondary">@color/forest_whisper_on_secondary</item>
+    </style>
+
+    <!-- Royal Elegance Theme -->
+    <style name="AppTheme.RoyalElegance" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/royal_elegance_primary</item>
+        <item name="colorPrimaryVariant">@color/royal_elegance_primary_variant</item>
+        <item name="colorOnPrimary">@color/royal_elegance_on_primary</item>
+        <item name="colorSecondary">@color/royal_elegance_secondary</item>
+        <item name="colorSecondaryVariant">@color/royal_elegance_secondary_variant</item>
+        <item name="colorOnSecondary">@color/royal_elegance_on_secondary</item>
+    </style>
+
+    <!-- Urban Night Theme -->
+    <style name="AppTheme.UrbanNight" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/urban_night_primary</item>
+        <item name="colorPrimaryVariant">@color/urban_night_primary_variant</item>
+        <item name="colorOnPrimary">@color/urban_night_on_primary</item>
+        <item name="colorSecondary">@color/urban_night_secondary</item>
+        <item name="colorSecondaryVariant">@color/urban_night_secondary_variant</item>
+        <item name="colorOnSecondary">@color/urban_night_on_secondary</item>
+    </style>
+</resources>

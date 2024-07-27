@@ -1,32 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFF1F8E9</color>
-    <color name="purple_500">#FF558B2F</color>
-    <color name="purple_700">#FF33691E</color>
-    <color name="teal_200">#FFB2DFDB</color>
-    <color name="teal_700">#FF004D40</color>
-    <color name="black">#FF1C1C1C</color>
-    <color name="white">#FFFFF9C4</color>
+        <!-- Light Theme Colors -->
+        <color name="light_primary">#6200EE</color>
+        <color name="light_primary_variant">#3700B3</color>
+        <color name="light_on_primary">#FFFFFF</color>
+        <color name="light_secondary">#03DAC6</color>
+        <color name="light_secondary_variant">#018786</color>
+        <color name="light_on_secondary">#000000</color>
 
+        <!-- Ocean Breeze Colors -->
+        <color name="ocean_breeze_primary">#009688</color>
+        <color name="ocean_breeze_primary_variant">#00796B</color>
+        <color name="ocean_breeze_on_primary">#FFFFFF</color>
+        <color name="ocean_breeze_secondary">#4DB6AC</color>
+        <color name="ocean_breeze_secondary_variant">#00897B</color>
+        <color name="ocean_breeze_on_secondary">#000000</color>
 
+        <!-- Sunset Glow Colors -->
+        <color name="sunset_glow_primary">#FF5722</color>
+        <color name="sunset_glow_primary_variant">#E64A19</color>
+        <color name="sunset_glow_on_primary">#FFFFFF</color>
+        <color name="sunset_glow_secondary">#FF8A65</color>
+        <color name="sunset_glow_secondary_variant">#D84315</color>
+        <color name="sunset_glow_on_secondary">#000000</color>
 
-    <color name="cool_blue">#4A90E2</color>
-    <color name="aesthetic_purple">#8E44AD</color>
+        <!-- Forest Whisper Colors -->
+        <color name="forest_whisper_primary">#4CAF50</color>
+        <color name="forest_whisper_primary_variant">#388E3C</color>
+        <color name="forest_whisper_on_primary">#FFFFFF</color>
+        <color name="forest_whisper_secondary">#81C784</color>
+        <color name="forest_whisper_secondary_variant">#2E7D32</color>
+        <color name="forest_whisper_on_secondary">#000000</color>
 
+        <!-- Royal Elegance Colors -->
+        <color name="royal_elegance_primary">#673AB7</color>
+        <color name="royal_elegance_primary_variant">#512DA8</color>
+        <color name="royal_elegance_on_primary">#FFFFFF</color>
+        <color name="royal_elegance_secondary">#9575CD</color>
+        <color name="royal_elegance_secondary_variant">#7B1FA2</color>
+        <color name="royal_elegance_on_secondary">#000000</color>
 
-    <color name="mp_color_primary">#007F8B</color>
-    <color name="mp_color_primary_variant">#12B5CB</color>
-    <color name="mp_color_primary_dark">#00676D</color>
-    <color name="mp_color_secondary">#FBBC04</color>
-    <color name="mp_color_secondary_variant">#F9AB00</color>
-    <color name="mp_color_error">#B00020</color>
-    <color name="toolbar_background">#E0E0E0</color>
-    <color name="ic_launcher_background">#FFFFFF</color>
-    <color name="bottom_sheet_background">#EEEEEE</color>
-    <color name="bottom_sheet_text_color">@android:color/black</color>
-    <color name="icActive">#FFFFFFFF</color>
-    <color name="icFocused">#DDFFFFFF</color>
-    <color name="icPressed">#AAFFFFFF</color>
+        <!-- Urban Night Colors -->
+        <color name="urban_night_primary">#212121</color>
+        <color name="urban_night_primary_variant">#121212</color>
+        <color name="urban_night_on_primary">#FFFFFF</color>
+        <color name="urban_night_secondary">#757575</color>
+        <color name="urban_night_secondary_variant">#424242</color>
+        <color name="urban_night_on_secondary">#000000</color>
 
-
+    <color name="camera_black">#212121</color>
+    <color name="camera_white">#FFFFFFFF</color>
 </resources>
