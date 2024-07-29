@@ -4,26 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.core.CameraSelector
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.fragment.app.Fragment
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import android.content.Context
 import android.os.Build
-import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
-import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 //import com.imnexerio.eyeris.CameraUtils
-import com.imnexerio.eyeris.FaceLandmarkerService
-import com.imnexerio.eyeris.OverlayManager
+import com.imnexerio.eyeris.helpers.OverlayManager
 import com.imnexerio.eyeris.OverlayView
 import com.imnexerio.eyeris.R
 

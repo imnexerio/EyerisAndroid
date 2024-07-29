@@ -1,10 +1,8 @@
-package com.imnexerio.eyeris
+package com.imnexerio.eyeris.helpers
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
 import androidx.annotation.VisibleForTesting

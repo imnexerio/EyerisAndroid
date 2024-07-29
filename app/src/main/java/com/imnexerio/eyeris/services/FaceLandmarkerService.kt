@@ -1,4 +1,4 @@
-package com.imnexerio.eyeris
+package com.imnexerio.eyeris.services
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -8,10 +8,8 @@ import android.app.Service
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.os.Binder
 import android.os.IBinder
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -23,6 +21,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.mediapipe.tasks.vision.core.RunningMode
+import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
+import com.imnexerio.eyeris.helpers.FaceLandmarkerHelper
+import com.imnexerio.eyeris.helpers.OverlayManager
+import com.imnexerio.eyeris.R
+import com.imnexerio.eyeris.helpers.DataUpdateListener
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.Timer
@@ -48,6 +51,13 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             )
         }
     }
+    inner class LocalBinder : Binder() {
+        fun getService(): FaceLandmarkerService = this@FaceLandmarkerService
+    }
+
+    private val binder = LocalBinder()
+
+    private var dataUpdateListener: DataUpdateListener? = null
 
     private lateinit var backgroundExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
@@ -71,10 +81,18 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         backgroundExecutor = Executors.newSingleThreadExecutor()
 
         backgroundExecutor.execute {
-            val minFaceDetectionConfidence = getStoredValue("detection_threshold", FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE)
-            val minFaceTrackingConfidence = getStoredValue("tracking_threshold", FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE)
-            val minFacePresenceConfidence = getStoredValue("presence_threshold", FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE)
-            val currentDelegate = getStoredIntValue("spinner_delegate", FaceLandmarkerHelper.DELEGATE_CPU)
+            val minFaceDetectionConfidence = getStoredValue("detection_threshold",
+                FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE
+            )
+            val minFaceTrackingConfidence = getStoredValue("tracking_threshold",
+                FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE
+            )
+            val minFacePresenceConfidence = getStoredValue("presence_threshold",
+                FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE
+            )
+            val currentDelegate = getStoredIntValue("spinner_delegate",
+                FaceLandmarkerHelper.DELEGATE_CPU
+            )
 
             faceLandmarkerHelper = FaceLandmarkerHelper(
                 context = this,
@@ -203,7 +221,7 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
                 .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                 .build()
                 .also {
-                    it.setAnalyzer(backgroundExecutor, FaceLandmarkerService::analyzeImage)
+                    it.setAnalyzer(backgroundExecutor, Companion::analyzeImage)
                 }
 
             cameraProvider?.unbindAll()
@@ -301,6 +319,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         val leftBlinkScore = categories.get(0)?.score() ?: 0.0f
         val rightBlinkScore = categories.get(1)?.score() ?: 0.0f
 
+        dataUpdateListener?.onDataUpdate(leftBlinkScore, rightBlinkScore)
+
         if(leftBlinkScore > 0.3) {
             lefteyeclosedcount++
         }
@@ -320,10 +340,15 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             resultBundle.inputImageWidth,
             RunningMode.LIVE_STREAM
         )
+
+    }
+
+    fun setDataUpdateListener(listener: DataUpdateListener?) {
+        dataUpdateListener = listener
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return null
+        return binder
     }
 
     override fun onError(error: String, errorCode: Int) {

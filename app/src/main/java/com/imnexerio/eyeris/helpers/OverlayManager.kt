@@ -1,7 +1,8 @@
-package com.imnexerio.eyeris
+package com.imnexerio.eyeris.helpers
 
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
+import com.imnexerio.eyeris.OverlayView
 
 object OverlayManager {
     private var overlayView: OverlayView? = null

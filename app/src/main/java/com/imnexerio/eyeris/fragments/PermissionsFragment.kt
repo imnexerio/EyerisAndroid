@@ -83,7 +83,7 @@ import com.imnexerio.eyeris.R
 
 //
 
-import com.imnexerio.eyeris.FaceLandmarkerService
+import com.imnexerio.eyeris.services.FaceLandmarkerService
 
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
