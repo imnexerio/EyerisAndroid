@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.airbnb.lottie.L
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarker
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
@@ -26,11 +27,14 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     private var imageWidth: Int = 1
     private var imageHeight: Int = 1
 
+
     init {
+//        Log.i(TAG, "Initializing overlay")
         initPaints()
     }
 
     fun clear() {
+//        Log.i(TAG, "Clearing overlay")
         results = null
         linePaint.reset()
         pointPaint.reset()
@@ -39,6 +43,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     }
 
     private fun initPaints() {
+//        Log.i(TAG, "Initializing Paints")
         linePaint.color = ContextCompat.getColor(context!!, R.color.light_secondary)
         linePaint.strokeWidth = LANDMARK_STROKE_WIDTH
         linePaint.style = Paint.Style.STROKE
@@ -50,6 +55,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+//        Log.i(TAG, "Drawing overlay")
         if (results == null || results!!.faceLandmarks().isEmpty()) {
             clear()
             return
@@ -94,7 +100,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
         runningMode: RunningMode = RunningMode.IMAGE
     ) {
         results = faceLandmarkerResults
-
+//        Log.i(TAG, "Results: $results")
         this.imageHeight = imageHeight
         this.imageWidth = imageWidth
 
@@ -114,6 +120,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) :
     }
 
     companion object {
+
         private const val LANDMARK_STROKE_WIDTH = 8F
         private const val TAG = "Face Landmarker Overlay"
     }
