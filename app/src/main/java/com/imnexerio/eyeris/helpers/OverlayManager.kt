@@ -21,6 +21,8 @@ object OverlayManager {
         imageWidth: Int,
         liveStream: RunningMode
     ) {
+//        Log.i("OverlayManager", "Updating Overlay")
+//        Log.i("OverlayManager", "Results: $results")
         overlayView?.setResults(results, imageHeight, imageWidth, liveStream)
     }
 }

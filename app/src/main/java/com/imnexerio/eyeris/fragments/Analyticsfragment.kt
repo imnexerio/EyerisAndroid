@@ -6,11 +6,15 @@ import android.content.Intent
 import android.content.ServiceConnection
 import androidx.fragment.app.Fragment
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.navigation.Navigation
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -375,6 +379,8 @@ import com.imnexerio.eyeris.services.FaceLandmarkerService
 
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.YAxis
+import com.imnexerio.eyeris.helpers.PlotManager
+import com.imnexerio.eyeris.views.RealtimePlotView
 
 
 //class Analyticsfragment : Fragment(), DataUpdateListener, SensorEventListener {
@@ -529,90 +535,285 @@ import com.github.mikephil.charting.components.YAxis
 //}
 
 
-class Analyticsfragment : Fragment(), DataUpdateListener {
+//class Analyticsfragment : Fragment(), DataUpdateListener {
+//
+//    private var mChart: LineChart? = null
+//    private var plotData = true
+//    private var serviceConnection: ServiceConnection? = null
+//    private var service: FaceLandmarkerService? = null
+//
+//    private lateinit var leftBlinkDataSet: LineDataSet
+//    private lateinit var rightBlinkDataSet: LineDataSet
+//
+//    private val MAX_ENTRIES = 30 // Define the maximum number of entries to keep
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val view = inflater.inflate(R.layout.fragment_analytics, container, false)
+//        val textColor = requireContext().theme.obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary)).getColor(0, Color.WHITE)
+//
+//        mChart = view.findViewById(R.id.realtimelineChart)
+//        mChart!!.description.isEnabled = false
+//        mChart!!.setTouchEnabled(false)
+//        mChart!!.isDragEnabled = false
+//        mChart!!.setScaleEnabled(false)
+//        mChart!!.setDrawGridBackground(false)
+//        mChart!!.setPinchZoom(false)
+//        mChart!!.setBackgroundColor(Color.TRANSPARENT)
+//
+//        val data = LineData()
+////        data.setValueTextColor(Color.WHITE)
+//        data.setValueTextColor(textColor)
+//        mChart!!.data = data
+//
+//        val l = mChart!!.legend
+//        l.form = Legend.LegendForm.LINE
+//        l.textColor = textColor
+//
+//        val xl = mChart!!.xAxis
+//        xl.textColor = textColor
+//        xl.setDrawGridLines(true)
+//        xl.setAvoidFirstLastClipping(true)
+//        xl.isEnabled = false
+//
+//        val leftAxis = mChart!!.axisLeft
+//        leftAxis.textColor = textColor
+//        leftAxis.setDrawGridLines(false)
+//        leftAxis.axisMaximum = 10f
+//        leftAxis.axisMinimum = -1f
+//        leftAxis.setDrawGridLines(true)
+//
+//        val rightAxis = mChart!!.axisRight
+//        rightAxis.isEnabled = false
+//
+//        mChart!!.axisLeft.setDrawGridLines(false)
+//        mChart!!.xAxis.setDrawGridLines(false)
+//        mChart!!.setDrawBorders(false)
+//
+//        // Initialize DataSets
+//        leftBlinkDataSet = createSet("Left Blink Score", Color.MAGENTA)
+//        rightBlinkDataSet = createSet("Right Blink Score", Color.CYAN)
+//        data.addDataSet(leftBlinkDataSet)
+//        data.addDataSet(rightBlinkDataSet)
+//        addInitialEntry()
+//
+//        return view
+//    }
+//    private fun addInitialEntry() {
+//        addEntry(0.1f, 0.1f)
+//    }
+//
+////    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
+////        val data = mChart!!.data
+////        if (data != null) {
+////
+////            if (leftBlinkDataSet.entryCount > MAX_ENTRIES) {
+////                leftBlinkDataSet.removeEntry(0)
+////                leftBlinkDataSet.notifyDataSetChanged()
+////            }
+////            if (rightBlinkDataSet.entryCount > MAX_ENTRIES) {
+////                rightBlinkDataSet.removeEntry(0)
+////                rightBlinkDataSet.notifyDataSetChanged()
+////            }
+////            Log.i("AnalyticsFragment", "Data set: $leftBlinkDataSet")
+////            Log.i("AnalyticsFragment", "entry count: ${leftBlinkDataSet.entryCount}")
+////
+////            data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
+////            data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
+////            data.notifyDataChanged()
+////            mChart!!.notifyDataSetChanged()
+////            mChart!!.setVisibleXRangeMaximum(25f)
+////            mChart!!.moveViewToX(data.entryCount.toFloat())
+////        }
+////    }
+//
+////    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
+////    val data = mChart!!.data
+////    if (data != null) {
+////        if (leftBlinkDataSet.entryCount > MAX_ENTRIES) {
+////            leftBlinkDataSet.removeEntry(0)
+////            adjustXValues(leftBlinkDataSet)
+//////            leftBlinkDataSet.notifyDataSetChanged()
+////        }
+////        if (rightBlinkDataSet.entryCount > MAX_ENTRIES) {
+////            rightBlinkDataSet.removeEntry(0)
+////            adjustXValues(rightBlinkDataSet)
+//////            rightBlinkDataSet.notifyDataSetChanged()
+////        }
+////        Log.i("AnalyticsFragment", "Data set: $leftBlinkDataSet")
+////        Log.i("AnalyticsFragment", "entry count: ${leftBlinkDataSet.entryCount}")
+////
+////        data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
+////        data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
+//////        data.notifyDataChanged()
+////        mChart!!.notifyDataSetChanged()
+////        mChart!!.setVisibleXRangeMaximum(25f)
+////        mChart!!.moveViewToX(data.entryCount.toFloat())
+////    }
+////}
+////
+////private fun adjustXValues(dataSet: LineDataSet) {
+////    for (i in 0 until dataSet.entryCount) {
+////        dataSet.getEntryForIndex(i).x = i.toFloat()
+////    }
+////}
+//
+//    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
+//    val data = mChart!!.data
+//    if (data != null) {
+//        if (leftBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//            leftBlinkDataSet.removeFirst()
+//            adjustXValues(leftBlinkDataSet)
+//        }
+//        if (rightBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//            rightBlinkDataSet.removeFirst()
+//            adjustXValues(rightBlinkDataSet)
+//        }
+//
+//        data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
+//        data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
+//        data.notifyDataChanged()
+//        mChart!!.notifyDataSetChanged()
+//        mChart!!.setVisibleXRangeMaximum(25f)
+//        mChart!!.moveViewToX(data.entryCount.toFloat())
+//    }
+//}
+//
+//    private fun adjustXValues(dataSet: LineDataSet) {
+//    for (i in 0 until dataSet.entryCount) {
+//        dataSet.getEntryForIndex(i).x = i.toFloat()
+//    }
+//}
+//
+//    private fun createSet(label: String, color: Int): LineDataSet {
+//        val set = LineDataSet(null, label)
+//        set.axisDependency = YAxis.AxisDependency.LEFT
+//        set.lineWidth = 3f
+//        set.color = color
+//        set.isHighlightEnabled = false
+//        set.setDrawValues(false)
+//        set.setDrawCircles(false)
+//        set.mode = LineDataSet.Mode.CUBIC_BEZIER
+//        set.cubicIntensity = 0.2f
+//        return set
+//    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        // Bind to the service
+//        val intent = Intent(requireContext(), FaceLandmarkerService::class.java)
+//        serviceConnection = object : ServiceConnection {
+//            override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
+//                service = (binder as? FaceLandmarkerService.LocalBinder)?.getService()
+//                service?.setDataUpdateListener(this@Analyticsfragment)
+//            }
+//
+//            override fun onServiceDisconnected(name: ComponentName?) {
+//                service = null
+//            }
+//        }
+//        requireContext().bindService(intent, serviceConnection!!, Context.BIND_AUTO_CREATE)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        // Unbind from the service
+//        service?.setDataUpdateListener(null)
+//        serviceConnection?.let { requireContext().unbindService(it) }
+//    }
+//
+//    override fun onDataUpdate(leftBlinkScore: Float, rightBlinkScore: Float) {
+//        addEntry(leftBlinkScore, rightBlinkScore)
+////        Log.i("AnalyticsFragment", "Data plotted: Left: $leftBlinkScore, Right: $rightBlinkScore")
+//        plotData = false
+//    }
+//}
 
-    private var mChart: LineChart? = null
-    private var plotData = true
-    private var serviceConnection: ServiceConnection? = null
-    private var service: FaceLandmarkerService? = null
 
-    private lateinit var leftBlinkDataSet: LineDataSet
-    private lateinit var rightBlinkDataSet: LineDataSet
-
-    private val MAX_ENTRIES = 30 // Define the maximum number of entries to keep
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_analytics, container, false)
-        val textColor = requireContext().theme.obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary)).getColor(0, Color.WHITE)
-
-        mChart = view.findViewById(R.id.realtimelineChart)
-        mChart!!.description.isEnabled = false
-        mChart!!.setTouchEnabled(false)
-        mChart!!.isDragEnabled = false
-        mChart!!.setScaleEnabled(false)
-        mChart!!.setDrawGridBackground(false)
-        mChart!!.setPinchZoom(false)
-        mChart!!.setBackgroundColor(Color.TRANSPARENT)
-
-        val data = LineData()
-//        data.setValueTextColor(Color.WHITE)
-        data.setValueTextColor(textColor)
-        mChart!!.data = data
-
-        val l = mChart!!.legend
-        l.form = Legend.LegendForm.LINE
-        l.textColor = textColor
-
-        val xl = mChart!!.xAxis
-        xl.textColor = textColor
-        xl.setDrawGridLines(true)
-        xl.setAvoidFirstLastClipping(true)
-        xl.isEnabled = false
-
-        val leftAxis = mChart!!.axisLeft
-        leftAxis.textColor = textColor
-        leftAxis.setDrawGridLines(false)
-        leftAxis.axisMaximum = 10f
-        leftAxis.axisMinimum = -1f
-        leftAxis.setDrawGridLines(true)
-
-        val rightAxis = mChart!!.axisRight
-        rightAxis.isEnabled = false
-
-        mChart!!.axisLeft.setDrawGridLines(false)
-        mChart!!.xAxis.setDrawGridLines(false)
-        mChart!!.setDrawBorders(false)
-
-        // Initialize DataSets
-        leftBlinkDataSet = createSet("Left Blink Score", Color.MAGENTA)
-        rightBlinkDataSet = createSet("Right Blink Score", Color.CYAN)
-        data.addDataSet(leftBlinkDataSet)
-        data.addDataSet(rightBlinkDataSet)
-        addInitialEntry()
-
-        return view
-    }
-    private fun addInitialEntry() {
-        addEntry(0.1f, 0.1f)
-    }
-
+//class Analyticsfragment : Fragment(){
+//
+//    private var mChart: LineChart? = null
+//    private var plotData = true
+////    private var serviceConnection: ServiceConnection? = null
+////    private var service: FaceLandmarkerService? = null
+//
+//    private lateinit var leftBlinkDataSet: LineDataSet
+//    private lateinit var rightBlinkDataSet: LineDataSet
+//
+//    private val MAX_ENTRIES = 30 // Define the maximum number of entries to keep
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val view = inflater.inflate(R.layout.fragment_analytics, container, false)
+//        val textColor = requireContext().theme.obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary)).getColor(0, Color.WHITE)
+//
+//        mChart = view.findViewById(R.id.realtimelineChart)
+//        mChart!!.description.isEnabled = false
+//        mChart!!.setTouchEnabled(false)
+//        mChart!!.isDragEnabled = false
+//        mChart!!.setScaleEnabled(false)
+//        mChart!!.setDrawGridBackground(false)
+//        mChart!!.setPinchZoom(false)
+//        mChart!!.setBackgroundColor(Color.TRANSPARENT)
+//
+//        val data = LineData()
+////        data.setValueTextColor(Color.WHITE)
+//        data.setValueTextColor(textColor)
+//        mChart!!.data = data
+//
+//        val l = mChart!!.legend
+//        l.form = Legend.LegendForm.LINE
+//        l.textColor = textColor
+//
+//        val xl = mChart!!.xAxis
+//        xl.textColor = textColor
+//        xl.setDrawGridLines(true)
+//        xl.setAvoidFirstLastClipping(true)
+//        xl.isEnabled = false
+//
+//        val leftAxis = mChart!!.axisLeft
+//        leftAxis.textColor = textColor
+//        leftAxis.setDrawGridLines(false)
+//        leftAxis.axisMaximum = 10f
+//        leftAxis.axisMinimum = -1f
+//        leftAxis.setDrawGridLines(true)
+//
+//        val rightAxis = mChart!!.axisRight
+//        rightAxis.isEnabled = false
+//
+//        mChart!!.axisLeft.setDrawGridLines(false)
+//        mChart!!.xAxis.setDrawGridLines(false)
+//        mChart!!.setDrawBorders(false)
+//
+//        // Initialize DataSets
+//        leftBlinkDataSet = createSet("Left Blink Score", Color.MAGENTA)
+//        rightBlinkDataSet = createSet("Right Blink Score", Color.CYAN)
+//        data.addDataSet(leftBlinkDataSet)
+//        data.addDataSet(rightBlinkDataSet)
+//        addInitialEntry()
+//
+//        return view
+//    }
+//    private fun addInitialEntry() {
+//        addEntry(0.1f, 0.1f)
+//    }
+//
+//
 //    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
 //        val data = mChart!!.data
 //        if (data != null) {
-//
-//            if (leftBlinkDataSet.entryCount > MAX_ENTRIES) {
-//                leftBlinkDataSet.removeEntry(0)
-//                leftBlinkDataSet.notifyDataSetChanged()
+//            if (leftBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//                leftBlinkDataSet.removeFirst()
+//                adjustXValues(leftBlinkDataSet)
 //            }
-//            if (rightBlinkDataSet.entryCount > MAX_ENTRIES) {
-//                rightBlinkDataSet.removeEntry(0)
-//                rightBlinkDataSet.notifyDataSetChanged()
+//            if (rightBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//                rightBlinkDataSet.removeFirst()
+//                adjustXValues(rightBlinkDataSet)
 //            }
-//            Log.i("AnalyticsFragment", "Data set: $leftBlinkDataSet")
-//            Log.i("AnalyticsFragment", "entry count: ${leftBlinkDataSet.entryCount}")
 //
 //            data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
 //            data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
@@ -622,105 +823,356 @@ class Analyticsfragment : Fragment(), DataUpdateListener {
 //            mChart!!.moveViewToX(data.entryCount.toFloat())
 //        }
 //    }
+//
+//    private fun adjustXValues(dataSet: LineDataSet) {
+//        for (i in 0 until dataSet.entryCount) {
+//            dataSet.getEntryForIndex(i).x = i.toFloat()
+//        }
+//    }
+//
+//    private fun createSet(label: String, color: Int): LineDataSet {
+//        val set = LineDataSet(null, label)
+//        set.axisDependency = YAxis.AxisDependency.LEFT
+//        set.lineWidth = 3f
+//        set.color = color
+//        set.isHighlightEnabled = false
+//        set.setDrawValues(false)
+//        set.setDrawCircles(false)
+//        set.mode = LineDataSet.Mode.CUBIC_BEZIER
+//        set.cubicIntensity = 0.2f
+//        return set
+//    }
+//
+////    override fun onStart() {
+////        super.onStart()
+////        // Bind to the service
+////        val intent = Intent(requireContext(), FaceLandmarkerService::class.java)
+////        serviceConnection = object : ServiceConnection {
+////            override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
+//////                service = (binder as? FaceLandmarkerService.LocalBinder)?.getService()
+//////                service?.setDataUpdateListener(this@Analyticsfragment)
+////            }
+////
+////            override fun onServiceDisconnected(name: ComponentName?) {
+////                service = null
+////            }
+////        }
+////        requireContext().bindService(intent, serviceConnection!!, Context.BIND_AUTO_CREATE)
+////    }
+//
+////    override fun onStop() {
+////        super.onStop()
+////        // Unbind from the service
+//////        service?.setDataUpdateListener(null)
+////        serviceConnection?.let { requireContext().unbindService(it) }
+////    }
+////
+////    override fun onDataUpdate(leftBlinkScore: Float, rightBlinkScore: Float) {
+////        addEntry(leftBlinkScore, rightBlinkScore)
+//////        Log.i("AnalyticsFragment", "Data plotted: Left: $leftBlinkScore, Right: $rightBlinkScore")
+////        plotData = false
+////    }
+//
+//    fun setData(
+//        leftBlinkScore: Float,
+//        rightBlinkScore: Float
+//    ) {
+//        Log.i("AnalyticsFragment", "Data plotted: Left: $leftBlinkScore, Right: $rightBlinkScore")
+//        addEntry(leftBlinkScore, rightBlinkScore)
+//        plotData = false
+//    }
+//
+//}
 
+
+//class Analyticsfragment : Fragment(){
+//
+//    private var mChart: LineChart? = null
+//    private var plotData = true
+//
+//    private lateinit var leftBlinkDataSet: LineDataSet
+//    private lateinit var rightBlinkDataSet: LineDataSet
+//
+//    private val MAX_ENTRIES = 30 // Define the maximum number of entries to keep
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val view = inflater.inflate(R.layout.fragment_analytics, container, false)
+//        val textColor = requireContext().theme.obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary)).getColor(0, Color.WHITE)
+//
+//        mChart = view.findViewById(R.id.realtimelineChart)
+//        mChart!!.description.isEnabled = false
+//        mChart!!.setTouchEnabled(false)
+//        mChart!!.isDragEnabled = false
+//        mChart!!.setScaleEnabled(false)
+//        mChart!!.setDrawGridBackground(false)
+//        mChart!!.setPinchZoom(false)
+//        mChart!!.setBackgroundColor(Color.TRANSPARENT)
+//
+//        val data = LineData()
+//        data.setValueTextColor(textColor)
+//        mChart!!.data = data
+//
+//        val l = mChart!!.legend
+//        l.form = Legend.LegendForm.LINE
+//        l.textColor = textColor
+//
+//        val xl = mChart!!.xAxis
+//        xl.textColor = textColor
+//        xl.setDrawGridLines(true)
+//        xl.setAvoidFirstLastClipping(true)
+//        xl.isEnabled = false
+//
+//        val leftAxis = mChart!!.axisLeft
+//        leftAxis.textColor = textColor
+//        leftAxis.setDrawGridLines(false)
+//        leftAxis.axisMaximum = 10f
+//        leftAxis.axisMinimum = -1f
+//        leftAxis.setDrawGridLines(true)
+//
+//        val rightAxis = mChart!!.axisRight
+//        rightAxis.isEnabled = false
+//
+//        mChart!!.axisLeft.setDrawGridLines(false)
+//        mChart!!.xAxis.setDrawGridLines(false)
+//        mChart!!.setDrawBorders(false)
+//
+//        // Initialize DataSets
+//        leftBlinkDataSet = createSet("Left Blink Score", Color.MAGENTA)
+//        rightBlinkDataSet = createSet("Right Blink Score", Color.CYAN)
+//        data.addDataSet(leftBlinkDataSet)
+//        data.addDataSet(rightBlinkDataSet)
+//        addInitialEntry()
+//
+//        return view
+//    }
+//    private fun addInitialEntry() {
+//        addEntry(0.1f, 0.1f)
+//    }
+//
+//
 //    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
-//    val data = mChart!!.data
-//    if (data != null) {
-//        if (leftBlinkDataSet.entryCount > MAX_ENTRIES) {
-//            leftBlinkDataSet.removeEntry(0)
-//            adjustXValues(leftBlinkDataSet)
-////            leftBlinkDataSet.notifyDataSetChanged()
-//        }
-//        if (rightBlinkDataSet.entryCount > MAX_ENTRIES) {
-//            rightBlinkDataSet.removeEntry(0)
-//            adjustXValues(rightBlinkDataSet)
-////            rightBlinkDataSet.notifyDataSetChanged()
-//        }
-//        Log.i("AnalyticsFragment", "Data set: $leftBlinkDataSet")
-//        Log.i("AnalyticsFragment", "entry count: ${leftBlinkDataSet.entryCount}")
+//        val data = mChart!!.data
+//        if (data != null) {
+//            if (leftBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//                leftBlinkDataSet.removeFirst()
+//                adjustXValues(leftBlinkDataSet)
+//            }
+//            if (rightBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//                rightBlinkDataSet.removeFirst()
+//                adjustXValues(rightBlinkDataSet)
+//            }
 //
-//        data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
-//        data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
-////        data.notifyDataChanged()
-//        mChart!!.notifyDataSetChanged()
-//        mChart!!.setVisibleXRangeMaximum(25f)
-//        mChart!!.moveViewToX(data.entryCount.toFloat())
+//            data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
+//            data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
+//            data.notifyDataChanged()
+//            mChart!!.notifyDataSetChanged()
+//            mChart!!.setVisibleXRangeMaximum(25f)
+//            mChart!!.moveViewToX(data.entryCount.toFloat())
+//        }
+//    }
+//
+//    private fun adjustXValues(dataSet: LineDataSet) {
+//        for (i in 0 until dataSet.entryCount) {
+//            dataSet.getEntryForIndex(i).x = i.toFloat()
+//        }
+//    }
+//
+//    private fun createSet(label: String, color: Int): LineDataSet {
+//        val set = LineDataSet(null, label)
+//        set.axisDependency = YAxis.AxisDependency.LEFT
+//        set.lineWidth = 3f
+//        set.color = color
+//        set.isHighlightEnabled = false
+//        set.setDrawValues(false)
+//        set.setDrawCircles(false)
+//        set.mode = LineDataSet.Mode.CUBIC_BEZIER
+//        set.cubicIntensity = 0.2f
+//        return set
+//    }
+//
+//
+//    fun setData(
+//        leftBlinkScore: Float,
+//        rightBlinkScore: Float
+//    ) {
+//        Log.i("AnalyticsFragment", "Data plotted: Left: $leftBlinkScore, Right: $rightBlinkScore")
+//        addEntry(leftBlinkScore, rightBlinkScore)
+//        plotData = false
+//    }
+//
+//}
+
+
+//class Analyticsfragment : Fragment() {
+//
+//
+//    private var mChart: LineChart? = null
+//    private var plotData = true
+//
+//    private lateinit var leftBlinkDataSet: LineDataSet
+//    private lateinit var rightBlinkDataSet: LineDataSet
+//
+//    private val MAX_ENTRIES = 30 // Define the maximum number of entries to keep
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        val view = inflater.inflate(R.layout.fragment_analytics, container, false)
+//        val textColor = requireContext().theme.obtainStyledAttributes(intArrayOf(android.R.attr.colorPrimary)).getColor(0, Color.WHITE)
+//
+//        PlotManager.setAnalyticsFragment(this)
+//
+//        mChart = view.findViewById(R.id.realtimelineChart)
+//        mChart!!.description.isEnabled = false
+//        mChart!!.setTouchEnabled(false)
+//        mChart!!.isDragEnabled = false
+//        mChart!!.setScaleEnabled(false)
+//        mChart!!.setDrawGridBackground(false)
+//        mChart!!.setPinchZoom(false)
+//        mChart!!.setBackgroundColor(Color.TRANSPARENT)
+//
+//        val data = LineData()
+//        data.setValueTextColor(textColor)
+//        mChart!!.data = data
+//
+//        val l = mChart!!.legend
+//        l.form = Legend.LegendForm.LINE
+//        l.textColor = textColor
+//
+//        val xl = mChart!!.xAxis
+//        xl.textColor = textColor
+//        xl.setDrawGridLines(true)
+//        xl.setAvoidFirstLastClipping(true)
+//        xl.isEnabled = false
+//
+//        val leftAxis = mChart!!.axisLeft
+//        leftAxis.textColor = textColor
+//        leftAxis.setDrawGridLines(false)
+//        leftAxis.axisMaximum = 10f
+//        leftAxis.axisMinimum = -1f
+//        leftAxis.setDrawGridLines(true)
+//
+//        val rightAxis = mChart!!.axisRight
+//        rightAxis.isEnabled = false
+//
+//        mChart!!.axisLeft.setDrawGridLines(false)
+//        mChart!!.xAxis.setDrawGridLines(false)
+//        mChart!!.setDrawBorders(false)
+//
+//        // Initialize DataSets
+//        leftBlinkDataSet = createSet("Left Blink Score", Color.MAGENTA)
+//        rightBlinkDataSet = createSet("Right Blink Score", Color.CYAN)
+//        data.addDataSet(leftBlinkDataSet)
+//        data.addDataSet(rightBlinkDataSet)
+//        addInitialEntry()
+//
+//        return view
+//    }
+//
+//    private fun addInitialEntry() {
+//        addEntry(0.1f, 0.1f)
+//    }
+//
+//    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
+//        val data = mChart!!.data
+//        if (data != null) {
+//            if (leftBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//                leftBlinkDataSet.removeFirst()
+//                adjustXValues(leftBlinkDataSet)
+//            }
+//            if (rightBlinkDataSet.entryCount >= MAX_ENTRIES) {
+//                rightBlinkDataSet.removeFirst()
+//                adjustXValues(rightBlinkDataSet)
+//            }
+//
+//            data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
+//            data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
+//            data.notifyDataChanged()
+//            mChart!!.notifyDataSetChanged()
+//            mChart!!.setVisibleXRangeMaximum(25f)
+//            mChart!!.moveViewToX(data.entryCount.toFloat())
+//        }
+//    }
+//
+//    private fun adjustXValues(dataSet: LineDataSet) {
+//        for (i in 0 until dataSet.entryCount) {
+//            dataSet.getEntryForIndex(i).x = i.toFloat()
+//        }
+//    }
+//
+//    private fun createSet(label: String, color: Int): LineDataSet {
+//        val set = LineDataSet(null, label)
+//        set.axisDependency = YAxis.AxisDependency.LEFT
+//        set.lineWidth = 3f
+//        set.color = color
+//        set.isHighlightEnabled = false
+//        set.setDrawValues(false)
+//        set.setDrawCircles(false)
+//        set.mode = LineDataSet.Mode.CUBIC_BEZIER
+//        set.cubicIntensity = 0.2f
+//        return set
+//    }
+//
+//    fun setData(leftBlinkScore: Float, rightBlinkScore: Float) {
+//        Log.i("AnalyticsFragment", "Data plotted: Left: $leftBlinkScore, Right: $rightBlinkScore")
+//        addEntry(leftBlinkScore, rightBlinkScore)
+//        plotData = false
 //    }
 //}
-//
-//private fun adjustXValues(dataSet: LineDataSet) {
-//    for (i in 0 until dataSet.entryCount) {
-//        dataSet.getEntryForIndex(i).x = i.toFloat()
-//    }
-//}
 
-    private fun addEntry(leftBlinkScore: Float, rightBlinkScore: Float) {
-    val data = mChart!!.data
-    if (data != null) {
-        if (leftBlinkDataSet.entryCount >= MAX_ENTRIES) {
-            leftBlinkDataSet.removeFirst()
-            adjustXValues(leftBlinkDataSet)
+
+
+class Analyticsfragment : Fragment() {
+
+    private lateinit var plotView: RealtimePlotView
+    private val TAG = "AnalyticsFragment"
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_analytics, container, false)
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            plotView = view.findViewById(R.id.realtimelineChart)
         }
-        if (rightBlinkDataSet.entryCount >= MAX_ENTRIES) {
-            rightBlinkDataSet.removeFirst()
-            adjustXValues(rightBlinkDataSet)
-        }
 
-        data.addEntry(Entry(leftBlinkDataSet.entryCount.toFloat(), leftBlinkScore * 10), 0)
-        data.addEntry(Entry(rightBlinkDataSet.entryCount.toFloat(), rightBlinkScore * 10), 1)
-        data.notifyDataChanged()
-        mChart!!.notifyDataSetChanged()
-        mChart!!.setVisibleXRangeMaximum(25f)
-        mChart!!.moveViewToX(data.entryCount.toFloat())
-    }
-}
 
-    private fun adjustXValues(dataSet: LineDataSet) {
-    for (i in 0 until dataSet.entryCount) {
-        dataSet.getEntryForIndex(i).x = i.toFloat()
-    }
-}
-
-    private fun createSet(label: String, color: Int): LineDataSet {
-        val set = LineDataSet(null, label)
-        set.axisDependency = YAxis.AxisDependency.LEFT
-        set.lineWidth = 3f
-        set.color = color
-        set.isHighlightEnabled = false
-        set.setDrawValues(false)
-        set.setDrawCircles(false)
-        set.mode = LineDataSet.Mode.CUBIC_BEZIER
-        set.cubicIntensity = 0.2f
-        return set
+    private fun startPlotting() {
+        PlotManager.startPlotting(plotView)
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Bind to the service
-        val intent = Intent(requireContext(), FaceLandmarkerService::class.java)
-        serviceConnection = object : ServiceConnection {
-            override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
-                service = (binder as? FaceLandmarkerService.LocalBinder)?.getService()
-                service?.setDataUpdateListener(this@Analyticsfragment)
-            }
+    private fun stopPlotting() {
+        PlotManager.stopPlotting()
+    }
 
-            override fun onServiceDisconnected(name: ComponentName?) {
-                service = null
-            }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun onResume() {
+        super.onResume()
+        if (!PermissionsFragment.hasPermissions(requireContext())) {
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.Analytics_fragment)
+        }else{
+            startPlotting()
         }
-        requireContext().bindService(intent, serviceConnection!!, Context.BIND_AUTO_CREATE)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopPlotting()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopPlotting()
     }
 
     override fun onStop() {
         super.onStop()
-        // Unbind from the service
-        service?.setDataUpdateListener(null)
-        serviceConnection?.let { requireContext().unbindService(it) }
-    }
-
-    override fun onDataUpdate(leftBlinkScore: Float, rightBlinkScore: Float) {
-        addEntry(leftBlinkScore, rightBlinkScore)
-//        Log.i("AnalyticsFragment", "Data plotted: Left: $leftBlinkScore, Right: $rightBlinkScore")
-        plotData = false
+        stopPlotting()
     }
 }
