@@ -122,6 +122,7 @@ import com.github.mikephil.charting.charts.LineChart
 //    }
 //}
 
+//this is working without crashes
 class RealtimePlotView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LineChart(context, attrs, defStyleAttr) {
