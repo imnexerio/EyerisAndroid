@@ -25,7 +25,6 @@ import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 import com.imnexerio.eyeris.helpers.FaceLandmarkerHelper
 import com.imnexerio.eyeris.helpers.OverlayManager
 import com.imnexerio.eyeris.R
-import com.imnexerio.eyeris.helpers.DataUpdateListener
 import com.imnexerio.eyeris.helpers.PlotManager
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -258,6 +257,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 //                triggerVibration()
 //            }
 
+//            Log.i(TAG, "Blink : $lefteyeopencount, $lefteyeclosedcount, $righteyeopencount, $righteyeclosedcount")
+
             val contentValues = ContentValues().apply {
                 put("timestamp", currentTime)
                 put("left_open", lefteyeopencount)
@@ -335,12 +336,12 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             righteyeopencount++
         }
 
-        OverlayManager.updateOverlay(
-            resultBundle.result,
-            resultBundle.inputImageHeight,
-            resultBundle.inputImageWidth,
-            RunningMode.LIVE_STREAM
-        )
+//        OverlayManager.updateOverlay(
+//            resultBundle.result,
+//            resultBundle.inputImageHeight,
+//            resultBundle.inputImageWidth,
+//            RunningMode.LIVE_STREAM
+//        )
 
         PlotManager.updatePlot(
             leftBlinkScore,
@@ -349,9 +350,6 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 
     }
 
-//    fun setDataUpdateListener(listener: DataUpdateListener?) {
-//        dataUpdateListener = listener
-//    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null

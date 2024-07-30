@@ -1,20 +1,17 @@
-package com.imnexerio.eyeris
+package com.imnexerio.eyeris.views
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
-import com.airbnb.lottie.L
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarker
 import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
+import com.imnexerio.eyeris.R
 import kotlin.math.max
 import kotlin.math.min
-
 
 class OverlayView(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {

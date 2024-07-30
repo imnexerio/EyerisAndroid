@@ -50,4 +50,5 @@
 
     <color name="camera_black">#212121</color>
     <color name="camera_white">#FFFFFFFF</color>
+        <color name="tem">#E0E0E0</color>
 </resources>

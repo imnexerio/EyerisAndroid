@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
 import com.imnexerio.eyeris.helpers.OverlayManager
-import com.imnexerio.eyeris.OverlayView
+import com.imnexerio.eyeris.views.OverlayView
 import com.imnexerio.eyeris.R
 
 

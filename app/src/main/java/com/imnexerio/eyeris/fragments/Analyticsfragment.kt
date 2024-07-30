@@ -20,8 +20,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.imnexerio.eyeris.R
-import com.imnexerio.eyeris.helpers.DataUpdateListener
-import com.imnexerio.eyeris.services.FaceLandmarkerService
+
 
 
 //class Analyticsfragment : Fragment() {

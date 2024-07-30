@@ -53,6 +53,7 @@
 
         <color name="camera_black">#FFFFFFFF</color>
     <color name="camera_white">#1C1C1C</color>
+        <color name="tem">#424242</color>
 </resources>
 
 
