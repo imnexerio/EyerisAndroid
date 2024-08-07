@@ -1,4 +1,4 @@
-package com.imnexerio.eyeris
+package com.imnexerio.eyeris.helpers
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

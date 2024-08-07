@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/permissions_fragment">
 
@@ -38,5 +39,10 @@
         android:id="@+id/mainActivity"
         android:name="com.imnexerio.eyeris.MainActivity"
         android:label="MainActivity" />
+    <activity
+        android:id="@+id/splashScreen"
+        android:name="com.imnexerio.eyeris.SplashScreen"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
 
 </navigation>

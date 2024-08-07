@@ -7,8 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.imnexerio.eyeris.BlinkDatabaseHelper
 import com.imnexerio.eyeris.R
+import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 import com.taosif7.android.ringchartlib.RingChart
 import com.taosif7.android.ringchartlib.models.RingChartData
 
