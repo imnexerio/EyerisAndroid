@@ -8,10 +8,15 @@ Eyeris is an open-source Android application designed to leverage cutting-edge c
 - **Real-Time Vision Processing**: Utilizing MediaPipe, Eyeris processes live camera feeds in real-time to deliver immersive experiences.
 - **User-Friendly Interface**: Designed with accessibility in mind, ensuring a seamless user experience.
 - **Extensible Framework**: Built on a modular architecture, making it easy for developers to extend and customize for various use cases.
-- ![Screenshot_20240727_142413_Eyeris](https://github.com/user-attachments/assets/b1925338-6bf5-4d53-8d0a-aa95889efa2c)
-- ![Screenshot_20240727_142428_Eyeris](https://github.com/user-attachments/assets/94b6674e-092b-47cf-8df9-0c2cbbf02dd9)
-- ![Screenshot_20240727_142424_Eyeris](https://github.com/user-attachments/assets/b6cc8bb8-3d52-4182-a358-46926f6a226c)
-- ![Screenshot_20240727_142438_Eyeris](https://github.com/user-attachments/assets/32896d2b-9864-44eb-b417-6f35081145e6)
+![Screen_Recording_20240807_195708_Eyeris](https://github.com/user-attachments/assets/7be89f9c-d854-4a29-9899-5fbc0a2b5845)
+![Screenshot_20240807_195601_Eyeris](https://github.com/user-attachments/assets/612494a3-3fcc-4441-a072-10feaabe3ac4)
+![Screenshot_20240807_195612_Eyeris](https://github.com/user-attachments/assets/8820c3d7-8c21-4565-a49a-6515ad17098f)
+![Screenshot_20240807_195617_Eyeris](https://github.com/user-attachments/assets/e15e3aa7-d557-4486-9d05-8641e3df3e7b)
+
+
+
+
+
 
 
 
