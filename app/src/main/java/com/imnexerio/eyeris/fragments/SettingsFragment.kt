@@ -1,7 +1,9 @@
 package com.imnexerio.eyeris.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -96,6 +98,10 @@ class SettingsFragment : Fragment() {
 
         view.findViewById<Button>(R.id.restore_defaults_button).setOnClickListener {
             restoreDefaults()
+        }
+
+        view.findViewById<Button>(R.id.about_button).setOnClickListener {
+            showAboutDialog()
         }
 
         loadSettings()
@@ -212,4 +218,32 @@ class SettingsFragment : Fragment() {
 
         dialog.show()
     }
+
+    private fun showAboutDialog() {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.about_dialog, null)
+
+        // Set up button click listeners
+        dialogView.findViewById<Button>(R.id.githubButton)?.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/imnexerio/EyerisAndroid"))
+            startActivity(intent)
+        }
+
+        dialogView.findViewById<Button>(R.id.websiteButton)?.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://imnexerio.github.io/eyerisweb/home.html"))
+            startActivity(intent)
+        }
+
+
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .setPositiveButton("OK") { _, _ ->
+
+            }
+            .create()
+
+
+        dialog.show()
+    }
+
 }

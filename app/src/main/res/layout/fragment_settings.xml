@@ -2,8 +2,8 @@
 
 <ScrollView
 xmlns:android="http://schemas.android.com/apk/res/android"
-android:paddingStart="16dp"
-android:paddingEnd="16dp"
+android:paddingStart="@dimen/bottom_sheet_default_row_margin"
+android:paddingEnd="@dimen/bottom_sheet_default_row_margin"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:layout_marginBottom="30dp">
@@ -25,8 +25,8 @@ android:layout_marginBottom="30dp">
             android:text="App Appearance"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:layout_marginBottom="@dimen/bottom_sheet_default_row_margin"
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
 
@@ -60,12 +60,14 @@ android:layout_marginBottom="30dp">
 
 
     <LinearLayout
+        android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
         android:layout_marginBottom="@dimen/bottom_sheet_default_row_margin"
         android:id="@+id/blink_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/ui_settings">
+        android:layout_below="@id/ui_settings"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,15 +75,15 @@ android:layout_marginBottom="30dp">
             android:text="Blink Reminder"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:textAppearance="?attr/textAppearanceHeadline6" />
+
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_blink_reminder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Blink Reminder"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
         <View
             android:layout_width="match_parent"
@@ -92,6 +94,7 @@ android:layout_marginBottom="30dp">
             android:id="@+id/switch_blink_reminder_vibration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:text="Blink Reminder Vibration"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
         <View
@@ -103,6 +106,7 @@ android:layout_marginBottom="30dp">
             android:id="@+id/switch_run_blink_reminder_screen_off"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:text="Run Blink Reminder when screen is off"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
         <View
@@ -114,6 +118,7 @@ android:layout_marginBottom="30dp">
             android:id="@+id/switch_turn_screen_on_notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:text="Turn screen on while showing notification"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
         <View
@@ -126,6 +131,7 @@ android:layout_marginBottom="30dp">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Show on screen alert"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:textAppearance="?attr/textAppearanceTitleMedium" />
         <View
             android:layout_width="match_parent"
@@ -199,7 +205,7 @@ android:layout_marginBottom="30dp">
             android:text="Detection Settings"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <!-- ML confidence threshold adjustment row -->
@@ -368,21 +374,34 @@ android:layout_marginBottom="30dp">
                 />
 
         </RelativeLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin">
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/restore_defaults_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
             android:text="Restore Defaults" />
 
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/about_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            />
 
+        </RelativeLayout>
     </LinearLayout>
-
 
 
 </RelativeLayout>
