@@ -25,7 +25,6 @@ import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 import com.imnexerio.eyeris.helpers.FaceLandmarkerHelper
 import com.imnexerio.eyeris.helpers.OverlayManager
 import com.imnexerio.eyeris.R
-import com.imnexerio.eyeris.helpers.PlotManager
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.Timer
@@ -336,17 +335,13 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             righteyeopencount++
         }
 
-//        OverlayManager.updateOverlay(
-//            resultBundle.result,
-//            resultBundle.inputImageHeight,
-//            resultBundle.inputImageWidth,
-//            RunningMode.LIVE_STREAM
-//        )
-
-        PlotManager.updatePlot(
-            leftBlinkScore,
-            rightBlinkScore
+        OverlayManager.updateOverlay(
+            resultBundle.result,
+            resultBundle.inputImageHeight,
+            resultBundle.inputImageWidth,
+            RunningMode.LIVE_STREAM
         )
+
 
     }
 

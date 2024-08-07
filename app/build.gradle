@@ -83,11 +83,11 @@ dependencies {
     // MediaPipe Library
     implementation 'com.google.mediapipe:tasks-vision:0.20230731'
 
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+//    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-//    implementation 'com.github.Taosif7:RingChartLib:1.0.0'
+    implementation 'com.github.Taosif7:RingChartLib:1.0.0'
 
     implementation 'com.airbnb.android:lottie:6.4.1'
 
