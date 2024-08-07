@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    >
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher_foreground"
+        app:tint="@color/camera_black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:text="Hey, Thank you for downloading Eyeris"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="This is an Open-Source project"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"/>
+
+    <Button
+        android:id="@+id/githubButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
+        android:text="Github"
+        android:textColor="@android:color/white"
+        />
+
+    <Button
+        android:id="@+id/websiteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#000000"
+        android:text="Website"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>
