@@ -11,11 +11,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.imnexerio.eyeris.databinding.ActivityMainBinding
+import com.imnexerio.eyeris.fragments.Analyticsfragment
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var activityMainBinding: ActivityMainBinding
-    private var isCameraRunning = false
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,24 +39,21 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         val navController = navHostFragment.navController
         activityMainBinding.navigation.setupWithNavController(navController)
-        activityMainBinding.navigation.setOnNavigationItemReselectedListener {
-            // ignore the reselection
+        activityMainBinding.navigation.setOnItemReselectedListener {
 
         }
 
+//        setContentView(R.layout.activity_main)
+
+        if (intent?.getStringExtra("navigateTo") == "AnalyticsFragment") {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, Analyticsfragment())
+                .commit()
+        }
+
+
+
+
     }
-
-
-//    private fun startFaceLandmarkerService() {
-//        val serviceIntent = Intent(this, FaceLandmarkerService::class.java).apply {
-//            action = "ACTION_START_CAMERA"
-//        }
-//        ContextCompat.startForegroundService(this, serviceIntent)
-//        isCameraRunning = true
-//
-//    }
-
-
-
 }
 

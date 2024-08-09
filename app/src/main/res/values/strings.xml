@@ -30,6 +30,10 @@
             Threshold</string>
     <string name="label_num_faces">Number of Faces</string>
     <string name="label_delegate">Delegate</string>
+    <string name="analytics">Analytics</string>
+    <string name="preview">Preview</string>
+    <string name="exercises">Exercises</string>
+    <string name="settings">Settings</string>
 
     <string-array name="delegate_spinner_titles">
         <item>CPU</item>

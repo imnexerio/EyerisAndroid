@@ -12,16 +12,19 @@
     android:paddingBottom="12dp"
     tools:context=".fragments.Analyticsfragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
 
-        <com.taosif7.android.ringchartlib.RingChart
-            android:id="@+id/ringChart"
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+    android:id="@+id/aa_chart_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
-    </com.google.android.material.card.MaterialCardView>
+
+<!--        <com.taosif7.android.ringchartlib.RingChart-->
+<!--            android:id="@+id/ringChart"-->
+
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" />-->
+
+
 </LinearLayout>

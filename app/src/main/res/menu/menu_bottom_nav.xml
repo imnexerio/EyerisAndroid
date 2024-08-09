@@ -3,23 +3,23 @@
     <item
         android:id="@id/Analytics_fragment"
         android:icon="@drawable/baseline_analytics_24"
-        android:title="Analytics"
+        android:title="@string/analytics"
         />
 
     <item
         android:id="@id/camera_fragment"
-        android:icon="@drawable/ic_baseline_photo_camera_24"
-        android:title="Preview"
+        android:icon="@drawable/baseline_ac_unit_24"
+        android:title="@string/preview"
          />
 
         <item
             android:id="@+id/Exercises_fragment"
             android:icon="@drawable/baseline_fitness_center_24"
-            android:title="Exercises"
+            android:title="@string/exercises"
              />
         <item
             android:id="@id/settings_fragment"
             android:icon="@drawable/baseline_settings_24"
-            android:title="Settings"
+            android:title="@string/settings"
              />
 </menu>
