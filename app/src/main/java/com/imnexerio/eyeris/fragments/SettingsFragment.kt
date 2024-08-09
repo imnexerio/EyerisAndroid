@@ -1,6 +1,5 @@
 package com.imnexerio.eyeris.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -19,7 +18,6 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.imnexerio.eyeris.R
-import java.nio.channels.Selector
 
 class SettingsFragment : Fragment() {
 
@@ -103,6 +101,9 @@ class SettingsFragment : Fragment() {
         view.findViewById<Button>(R.id.about_button).setOnClickListener {
             showAboutDialog()
         }
+
+
+
 
         loadSettings()
     }

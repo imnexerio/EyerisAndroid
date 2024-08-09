@@ -101,20 +101,20 @@ class FaceLandmarkerHelper(
                 "Face Landmarker failed to initialize. See error logs for " +
                         "details"
             )
-            Log.e(
-                TAG, "MediaPipe failed to load the task with error: " + e
-                    .message
-            )
+//            Log.e(
+//                TAG, "MediaPipe failed to load the task with error: " + e
+//                    .message
+//            )
         } catch (e: RuntimeException) {
             // This occurs if the model being used does not support GPU
             faceLandmarkerHelperListener?.onError(
                 "Face Landmarker failed to initialize. See error logs for " +
                         "details", GPU_ERROR
             )
-            Log.e(
-                TAG,
-                "Face Landmarker failed to load model with error: " + e.message
-            )
+//            Log.e(
+//                TAG,
+//                "Face Landmarker failed to load model with error: " + e.message
+//            )
         }
     }
 

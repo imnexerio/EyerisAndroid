@@ -8,7 +8,6 @@ import android.app.Service
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import androidx.camera.core.CameraSelector
@@ -275,7 +274,7 @@ private val startCameraAction: NotificationCompat.Action
                     imageAnalyzer
                 )
             } catch (exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+//                Log.e(TAG, "Use case binding failed", exc)
             }
         }, ContextCompat.getMainExecutor(this))
     }
@@ -312,14 +311,14 @@ private val startCameraAction: NotificationCompat.Action
             db.insert("blink_data", null, contentValues)
             db.setTransactionSuccessful()
         } catch (e: Exception) {
-            Log.i(TAG, "Blink : some error occurred while storing data")
-            Log.i(TAG, "Blink : $lefteyeopencount")
-            Log.i(TAG, "Blink : $lefteyeclosedcount")
-            Log.i(TAG, "Blink : $righteyeopencount")
-            Log.i(TAG, "Blink : $righteyeclosedcount")
+//            Log.i(TAG, "Blink : some error occurred while storing data")
+//            Log.i(TAG, "Blink : $lefteyeopencount")
+//            Log.i(TAG, "Blink : $lefteyeclosedcount")
+//            Log.i(TAG, "Blink : $righteyeopencount")
+//            Log.i(TAG, "Blink : $righteyeclosedcount")
         } finally {
             db.endTransaction()
-            Log.i(TAG, "Stored data")
+//            Log.i(TAG, "Stored data")
             lefteyeopencount = 0
             lefteyeclosedcount = 0
             righteyeopencount = 0
@@ -395,7 +394,7 @@ private val startCameraAction: NotificationCompat.Action
     }
 
     override fun onError(error: String, errorCode: Int) {
-        Log.e(TAG, "Error: $error (Code: $errorCode)")
+//        Log.e(TAG, "Error: $error (Code: $errorCode)")
     }
 
     class ServiceLifecycleOwner : LifecycleOwner {
