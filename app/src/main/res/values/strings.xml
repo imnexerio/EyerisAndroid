@@ -49,13 +49,23 @@
 
 
         <string-array name="theme_options">
-            <item>Default</item>
             <item>Ocean Breeze</item>
             <item>Sunset Glow</item>
             <item>Forest Whisper</item>
             <item>Royal Elegance</item>
             <item>Urban Night</item>
-        </string-array>
+            <item>Blue Sky</item>
+            <item>Red Blaze</item>
+            <item>Orange Sunset</item>
+            <item>Green Meadow</item>
+            <item>Purple Twilight</item>
+            <item>Yellow Sunshine</item>
+            <item>Pink Blossom</item>
+            <item>Greyscale</item>
+    </string-array>
+
+
+
 
 
 

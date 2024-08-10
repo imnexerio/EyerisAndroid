@@ -1,58 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<resources xmlns:tools="http://schemas.android.com/tools">-->
-<!--    &lt;!&ndash; Base application theme &ndash;&gt;-->
-<!--    <style name="AppTheme_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
-
-<!--    </style>-->
-
-<!--    &lt;!&ndash; Ocean Breeze Theme &ndash;&gt;-->
-<!--    <style name="AppTheme.OceanBreeze_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
-
-<!--    </style>-->
-
-<!--    &lt;!&ndash; Sunset Glow Theme &ndash;&gt;-->
-<!--    <style name="AppTheme.SunsetGlow_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
-
-<!--    </style>-->
-
-<!--    &lt;!&ndash; Forest Whisper Theme &ndash;&gt;-->
-<!--    <style name="AppTheme.ForestWhisper_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
-
-<!--    </style>-->
-
-<!--    &lt;!&ndash; Royal Elegance Theme &ndash;&gt;-->
-<!--    <style name="AppTheme.RoyalElegance_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
-
-<!--    </style>-->
-
-<!--    &lt;!&ndash; Urban Night Theme &ndash;&gt;-->
-<!--    <style name="AppTheme.UrbanNight_Dark" parent="Theme.Material3.DayNight.NoActionBar">-->
-
-<!--    </style>-->
-<!--</resources>-->
-
-
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Splash Screen Theme -->
     <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/tem</item>
 
-
-
     </style>
 
-    <!-- Base application theme -->
-    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/light_primary</item>
-        <item name="colorPrimaryVariant">@color/light_primary_variant</item>
-        <item name="colorOnPrimary">@color/light_on_primary</item>
-        <item name="colorSecondary">@color/light_secondary</item>
-        <item name="colorSecondaryVariant">@color/light_secondary_variant</item>
-        <item name="colorOnSecondary">@color/light_on_secondary</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-    </style>
 
     <!-- Ocean Breeze Theme -->
     <style name="AppTheme.OceanBreeze" parent="Theme.Material3.DayNight.NoActionBar">
@@ -103,4 +58,86 @@
         <item name="colorSecondaryVariant">@color/urban_night_secondary_variant</item>
         <item name="colorOnSecondary">@color/urban_night_on_secondary</item>
     </style>
+
+
+<!-- Blue Sky Theme -->
+<style name="AppTheme.BlueSky" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/blue_sky_primary</item>
+    <item name="colorPrimaryVariant">@color/blue_sky_primary_variant</item>
+    <item name="colorOnPrimary">@color/blue_sky_on_primary</item>
+    <item name="colorSecondary">@color/blue_sky_secondary</item>
+    <item name="colorSecondaryVariant">@color/blue_sky_secondary_variant</item>
+    <item name="colorOnSecondary">@color/blue_sky_on_secondary</item>
+</style>
+
+<!-- Red Blaze Theme -->
+<style name="AppTheme.RedBlaze" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/red_blaze_primary</item>
+    <item name="colorPrimaryVariant">@color/red_blaze_primary_variant</item>
+    <item name="colorOnPrimary">@color/red_blaze_on_primary</item>
+    <item name="colorSecondary">@color/red_blaze_secondary</item>
+    <item name="colorSecondaryVariant">@color/red_blaze_secondary_variant</item>
+    <item name="colorOnSecondary">@color/red_blaze_on_secondary</item>
+</style>
+
+<!-- Orange Sunset Theme -->
+<style name="AppTheme.OrangeSunset" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/orange_sunset_primary</item>
+    <item name="colorPrimaryVariant">@color/orange_sunset_primary_variant</item>
+    <item name="colorOnPrimary">@color/orange_sunset_on_primary</item>
+    <item name="colorSecondary">@color/orange_sunset_secondary</item>
+    <item name="colorSecondaryVariant">@color/orange_sunset_secondary_variant</item>
+    <item name="colorOnSecondary">@color/orange_sunset_on_secondary</item>
+</style>
+
+<!-- Green Meadow Theme -->
+<style name="AppTheme.GreenMeadow" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/green_meadow_primary</item>
+    <item name="colorPrimaryVariant">@color/green_meadow_primary_variant</item>
+    <item name="colorOnPrimary">@color/green_meadow_on_primary</item>
+    <item name="colorSecondary">@color/green_meadow_secondary</item>
+    <item name="colorSecondaryVariant">@color/green_meadow_secondary_variant</item>
+    <item name="colorOnSecondary">@color/green_meadow_on_secondary</item>
+</style>
+
+<!-- Purple Twilight Theme -->
+<style name="AppTheme.PurpleTwilight" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/purple_twilight_primary</item>
+    <item name="colorPrimaryVariant">@color/purple_twilight_primary_variant</item>
+    <item name="colorOnPrimary">@color/purple_twilight_on_primary</item>
+    <item name="colorSecondary">@color/purple_twilight_secondary</item>
+    <item name="colorSecondaryVariant">@color/purple_twilight_secondary_variant</item>
+    <item name="colorOnSecondary">@color/purple_twilight_on_secondary</item>
+</style>
+
+<!-- Yellow Sunshine Theme -->
+<style name="AppTheme.YellowSunshine" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/yellow_sunshine_primary</item>
+    <item name="colorPrimaryVariant">@color/yellow_sunshine_primary_variant</item>
+    <item name="colorOnPrimary">@color/yellow_sunshine_on_primary</item>
+    <item name="colorSecondary">@color/yellow_sunshine_secondary</item>
+    <item name="colorSecondaryVariant">@color/yellow_sunshine_secondary_variant</item>
+    <item name="colorOnSecondary">@color/yellow_sunshine_on_secondary</item>
+</style>
+
+<!-- Pink Blossom Theme -->
+<style name="AppTheme.PinkBlossom" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/pink_blossom_primary</item>
+    <item name="colorPrimaryVariant">@color/pink_blossom_primary_variant</item>
+    <item name="colorOnPrimary">@color/pink_blossom_on_primary</item>
+    <item name="colorSecondary">@color/pink_blossom_secondary</item>
+    <item name="colorSecondaryVariant">@color/pink_blossom_secondary_variant</item>
+    <item name="colorOnSecondary">@color/pink_blossom_on_secondary</item>
+</style>
+
+    <style name="AppTheme.Greyscale" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/greyscale_primary</item>
+        <item name="colorPrimaryVariant">@color/greyscale_primary_variant</item>
+        <item name="colorOnPrimary">@color/greyscale_on_primary</item>
+        <item name="colorSecondary">@color/greyscale_secondary</item>
+        <item name="colorSecondaryVariant">@color/greyscale_secondary_variant</item>
+        <item name="colorOnSecondary">@color/greyscale_on_secondary</item>
+    </style>
+
 </resources>
+

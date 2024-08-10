@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- res/values/attrs.xml -->
-<resources>
-    <declare-styleable name="ThemeAttributes">
-        <attr name="themeName" format="string" />
-    </declare-styleable>
-</resources>

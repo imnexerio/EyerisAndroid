@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.SeekBar
@@ -102,7 +103,20 @@ class SettingsFragment : Fragment() {
             showAboutDialog()
         }
 
+        val currentTheme = sharedPreferences.getInt("selected_theme", 0)
 
+        themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                if (position != currentTheme) {
+                    sharedPreferences.edit().putInt("selected_theme", position).apply()
+                    requireActivity().recreate() // Restart the activity to apply the new theme
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
 
 
         loadSettings()

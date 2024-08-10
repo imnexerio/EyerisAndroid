@@ -22,13 +22,23 @@ class MainActivity : AppCompatActivity() {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val themePosition = sharedPreferences.getInt("selected_theme", 0)
+//        Log.d("Theme", themePosition.toString())
         when (themePosition) {
-                0 -> setTheme( R.style.AppTheme )
-                1 -> setTheme( R.style.AppTheme_OceanBreeze )
-                2 -> setTheme( R.style.AppTheme_SunsetGlow )
-                3 -> setTheme( R.style.AppTheme_ForestWhisper )
+                0 -> setTheme( R.style.AppTheme_OceanBreeze )
+                1 -> setTheme( R.style.AppTheme_SunsetGlow )
+                2 -> setTheme( R.style.AppTheme_ForestWhisper )
+                3 -> setTheme( R.style.AppTheme_RoyalElegance )
                 4 -> setTheme( R.style.AppTheme_UrbanNight )
-                5 -> setTheme( R.style.AppTheme_RoyalElegance )
+                5 -> setTheme( R.style.AppTheme_BlueSky )
+                6 -> setTheme( R.style.AppTheme_RedBlaze )
+                7 -> setTheme( R.style.AppTheme_OrangeSunset )
+                8 -> setTheme( R.style.AppTheme_GreenMeadow )
+                9 -> setTheme( R.style.AppTheme_PurpleTwilight )
+                10 -> setTheme( R.style.AppTheme_YellowSunshine )
+                11 -> setTheme( R.style.AppTheme_PinkBlossom )
+                12 -> setTheme( R.style.AppTheme_Greyscale )
+                else -> setTheme( R.style.AppTheme_OceanBreeze )
+
             }
 
         super.onCreate(savedInstanceState)
