@@ -10,7 +10,7 @@
     android:paddingEnd="12dp"
     android:paddingTop="12dp"
     android:paddingBottom="12dp"
-    tools:context=".fragments.Analyticsfragment">
+    tools:context=".fragments.AnalyticsFragment">
 
 
 

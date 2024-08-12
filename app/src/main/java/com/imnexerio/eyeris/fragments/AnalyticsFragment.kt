@@ -1,7 +1,6 @@
 package com.imnexerio.eyeris.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.github.aachartmodel.aainfographics.aaoptionsmodel.AADataLabels
 import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 
 
-//class Analyticsfragment : Fragment() {
+//class AnalyticsFragment : Fragment() {
 //
 //    private lateinit var ringChart: RingChart
 //    private lateinit var databaseHelper: BlinkDatabaseHelper
@@ -115,7 +114,7 @@ import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 //}
 
 
-//class Analyticsfragment : Fragment() {
+//class AnalyticsFragment : Fragment() {
 //
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -296,7 +295,7 @@ import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 
 
 
-//class Analyticsfragment : Fragment() {
+//class AnalyticsFragment : Fragment() {
 //
 //    private lateinit var aaChartView: AAChartView
 //    private lateinit var databaseHelper: BlinkDatabaseHelper
@@ -358,7 +357,7 @@ import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 
 
 
-class Analyticsfragment : Fragment() {
+class AnalyticsFragment : Fragment() {
 
     private lateinit var aaChartView: AAChartView
     private lateinit var databaseHelper: BlinkDatabaseHelper

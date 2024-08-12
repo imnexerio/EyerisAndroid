@@ -120,7 +120,10 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         }
 
         lifecycleOwner = ServiceLifecycleOwner()
-        lifecycleOwner.lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        lifecycleOwner.setCurrentState(Lifecycle.State.STARTED)
+
+//        lifecycleOwner = ServiceLifecycleOwner()
+//        lifecycleOwner.lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
 
     private fun createNotificationChannel() {
@@ -397,12 +400,31 @@ private val startCameraAction: NotificationCompat.Action
 //        Log.e(TAG, "Error: $error (Code: $errorCode)")
     }
 
+//    class ServiceLifecycleOwner : LifecycleOwner {
+//        val lifecycleRegistry = LifecycleRegistry(this)
+//        override fun getLifecycle(): Lifecycle {
+//            return lifecycleRegistry
+//        }
+//    }
+
+//    class ServiceLifecycleOwner : LifecycleOwner {
+//        private val lifecycleRegistry = LifecycleRegistry(this)
+//
+//        override val lifecycle: Lifecycle
+//            get() = lifecycleRegistry
+//    }
+
     class ServiceLifecycleOwner : LifecycleOwner {
-        val lifecycleRegistry = LifecycleRegistry(this)
-        override fun getLifecycle(): Lifecycle {
-            return lifecycleRegistry
+        private val lifecycleRegistry = LifecycleRegistry(this)
+
+        override val lifecycle: Lifecycle
+            get() = lifecycleRegistry
+
+        fun setCurrentState(state: Lifecycle.State) {
+            lifecycleRegistry.currentState = state
         }
     }
+
     private fun getStoredValue(key: String, defaultValue: Float): Float {
         val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         return sharedPreferences.getFloat(key, defaultValue)

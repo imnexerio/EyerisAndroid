@@ -1,17 +1,14 @@
 package com.imnexerio.eyeris
 
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.imnexerio.eyeris.databinding.ActivityMainBinding
-import com.imnexerio.eyeris.fragments.Analyticsfragment
+import com.imnexerio.eyeris.fragments.AnalyticsFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         if (intent?.getStringExtra("navigateTo") == "AnalyticsFragment") {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Analyticsfragment())
+                .replace(R.id.fragment_container, AnalyticsFragment())
                 .commit()
         }
 
