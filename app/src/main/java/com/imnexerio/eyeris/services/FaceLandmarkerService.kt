@@ -93,10 +93,10 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             }
 
 
-//            Log.i(TAG, "Detection threshold : $detectionThreshold")
-//            Log.i(TAG, "Tracking threshold : $trackingThreshold")
-//            Log.i(TAG, "Presence threshold : $presenceThreshold")
-//            Log.i(TAG, "Delegate value : $spinnerDelegateValue")
+            Log.i(TAG, "Detection threshold : $detectionThreshold")
+            Log.i(TAG, "Tracking threshold : $trackingThreshold")
+            Log.i(TAG, "Presence threshold : $presenceThreshold")
+            Log.i(TAG, "Delegate value : $spinnerDelegateValue")
 
 
 
@@ -361,29 +361,4 @@ private val startCameraAction: NotificationCompat.Action
         }
     }
 
-    private fun getStoredValue(key: String, defaultValue: Float): Float {
-        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val storedValue = sharedPreferences.getFloat(key, defaultValue)
-        Log.i(TAG, "Shared preferences value: $storedValue")
-        return sharedPreferences.getFloat(key, defaultValue)
-
-    }
-
-    private fun getStoredIntValue(key: String, defaultValue: Int): Int {
-        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        val storedValue = sharedPreferences.getInt(key, defaultValue)
-        Log.i(TAG, "Shared preferences value: $storedValue")
-        return sharedPreferences.getInt(key, defaultValue)
-    }
-
-    private fun setInitialValues() {
-        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-
-        val detectionThreshold = sharedPreferences.getFloat("detection_threshold", FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE)
-        val trackingThreshold = sharedPreferences.getFloat("tracking_threshold", FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE)
-        val presenceThreshold = sharedPreferences.getFloat("presence_threshold", FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE)
-        val spinnerDelegateValue = sharedPreferences.getInt("spinner_delegate", FaceLandmarkerHelper.DELEGATE_CPU)
-
-
-    }
 }
