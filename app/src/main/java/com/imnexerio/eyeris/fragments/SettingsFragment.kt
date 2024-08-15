@@ -1,5 +1,6 @@
 package com.imnexerio.eyeris.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -50,11 +51,13 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+            sharedPreferences = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+            return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         themeSpinner = view.findViewById(R.id.theme_spinner)
 
         switchBlinkReminder = view.findViewById(R.id.switch_blink_reminder)
@@ -196,9 +199,9 @@ class SettingsFragment : Fragment() {
 
         themeSpinner.setSelection(0)
 
-        switchBlinkReminder.isChecked = true
+        switchBlinkReminder.isChecked = false
         switchBlinkReminderVibration.isChecked = false
-        switchRunBlinkReminderScreenOff.isChecked = false
+        switchRunBlinkReminderScreenOff.isChecked = true
         switchTurnScreenOnNotification.isChecked = false
         switchShowOnScreenAlert.isChecked = false
         blinkIntervalValue.text = "1 minutes"

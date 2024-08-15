@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.IBinder
 import android.util.Log
 import androidx.camera.core.CameraSelector
@@ -51,6 +52,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         }
     }
 
+    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var backgroundExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -65,6 +68,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 
     override fun onCreate() {
         super.onCreate()
+
+        sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         databaseHelper = BlinkDatabaseHelper(this)
         createNotificationChannel()
         startForegroundService()
@@ -73,25 +78,34 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         backgroundExecutor = Executors.newSingleThreadExecutor()
 
         backgroundExecutor.execute {
-            val minFaceDetectionConfidence = getStoredValue("detection_threshold",
-                FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE
-            )
-            val minFaceTrackingConfidence = getStoredValue("tracking_threshold",
-                FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE
-            )
-            val minFacePresenceConfidence = getStoredValue("presence_threshold",
-                FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE
-            )
-            val currentDelegate = getStoredIntValue("spinner_delegate",
+
+            val detectionThreshold = sharedPreferences.getFloat("detection_threshold", FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE)
+            val trackingThreshold = sharedPreferences.getFloat("tracking_threshold", FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE)
+            val presenceThreshold = sharedPreferences.getFloat("presence_threshold", FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE)
+            val spinnerDelegateValue = sharedPreferences.getInt("spinner_delegate", FaceLandmarkerHelper.DELEGATE_CPU)
+
+            val currentDelegate = if (spinnerDelegateValue == 0) {
                 FaceLandmarkerHelper.DELEGATE_CPU
-            )
+//                Log.i(TAG, "Delegate value : CPU")
+            } else {
+                FaceLandmarkerHelper.DELEGATE_GPU
+//                Log.i(TAG, "Delegate value : GPU")
+            }
+
+
+//            Log.i(TAG, "Detection threshold : $detectionThreshold")
+//            Log.i(TAG, "Tracking threshold : $trackingThreshold")
+//            Log.i(TAG, "Presence threshold : $presenceThreshold")
+//            Log.i(TAG, "Delegate value : $spinnerDelegateValue")
+
+
 
             faceLandmarkerHelper = FaceLandmarkerHelper(
                 context = this,
                 runningMode = RunningMode.LIVE_STREAM,
-                minFaceDetectionConfidence = minFaceDetectionConfidence,
-                minFaceTrackingConfidence = minFaceTrackingConfidence,
-                minFacePresenceConfidence = minFacePresenceConfidence,
+                minFaceDetectionConfidence = detectionThreshold,
+                minFaceTrackingConfidence = trackingThreshold,
+                minFacePresenceConfidence = presenceThreshold,
                 maxNumFaces = 1,
                 currentDelegate = currentDelegate,
                 faceLandmarkerHelperListener = this
@@ -106,6 +120,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 //        lifecycleOwner = ServiceLifecycleOwner()
 //        lifecycleOwner.lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
+
+
 
     private fun createNotificationChannel() {
         val serviceChannel = NotificationChannel(
@@ -347,11 +363,27 @@ private val startCameraAction: NotificationCompat.Action
 
     private fun getStoredValue(key: String, defaultValue: Float): Float {
         val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val storedValue = sharedPreferences.getFloat(key, defaultValue)
+        Log.i(TAG, "Shared preferences value: $storedValue")
         return sharedPreferences.getFloat(key, defaultValue)
+
     }
 
     private fun getStoredIntValue(key: String, defaultValue: Int): Int {
         val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val storedValue = sharedPreferences.getInt(key, defaultValue)
+        Log.i(TAG, "Shared preferences value: $storedValue")
         return sharedPreferences.getInt(key, defaultValue)
+    }
+
+    private fun setInitialValues() {
+        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+
+        val detectionThreshold = sharedPreferences.getFloat("detection_threshold", FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE)
+        val trackingThreshold = sharedPreferences.getFloat("tracking_threshold", FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE)
+        val presenceThreshold = sharedPreferences.getFloat("presence_threshold", FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE)
+        val spinnerDelegateValue = sharedPreferences.getInt("spinner_delegate", FaceLandmarkerHelper.DELEGATE_CPU)
+
+
     }
 }
