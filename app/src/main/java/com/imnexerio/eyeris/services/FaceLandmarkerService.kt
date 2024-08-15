@@ -50,13 +50,6 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             )
         }
     }
-//    inner class LocalBinder : Binder() {
-//        fun getService(): FaceLandmarkerService = this@FaceLandmarkerService
-//    }
-//
-//    private val binder = LocalBinder()
-
-//    private var dataUpdateListener: DataUpdateListener? = null
 
     private lateinit var backgroundExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
@@ -104,18 +97,6 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
                 faceLandmarkerHelperListener = this
             )
 
-//            Log.i(TAG, "FaceLandmarkerHelper created, minFaceDetectionConfidence: $minFaceDetectionConfidence, minFaceTrackingConfidence: $minFaceTrackingConfidence, minFacePresenceConfidence: $minFacePresenceConfidence")
-//        backgroundExecutor.execute {
-//            faceLandmarkerHelper = FaceLandmarkerHelper(
-//                context = this,
-//                runningMode = RunningMode.LIVE_STREAM,
-//                minFaceDetectionConfidence = 0.5f,
-//                minFaceTrackingConfidence = 0.5f,
-//                minFacePresenceConfidence = 0.5f,
-//                maxNumFaces = 1,
-//                currentDelegate = FaceLandmarkerHelper.DELEGATE_CPU,
-//                faceLandmarkerHelperListener = this
-//            )
             setUpCamera()
         }
 
@@ -141,23 +122,6 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         startForeground(NOTIFICATION_ID, notification)
     }
 
-//    private fun createNotification(isCameraActive: Boolean): Notification {
-//        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle("Eyeris Service")
-//            .setContentText("Detecting blinks in background 😊")
-//            .setSmallIcon(R.mipmap.ic_launcher_round)
-//
-//
-//        if (isCameraActive) {
-//            builder.addAction(stopCameraAction)
-//        } else {
-//            builder.addAction(startCameraAction)
-//        }
-//
-//        return builder.build()
-//    }
-
-    // In `FaceLandmarkerService.kt`
 
     private fun createNotification(isCameraActive: Boolean): Notification {
         val intent = Intent(this, MainActivity::class.java).apply {
@@ -182,23 +146,6 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         return builder.build()
     }
 
-//    private val stopCameraAction: NotificationCompat.Action
-//        get() {
-//            val intent = Intent(this, FaceLandmarkerService::class.java).apply {
-//                action = "ACTION_STOP_CAMERA"
-//            }
-//            val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-//            return NotificationCompat.Action.Builder(R.drawable.baseline_pause_24, "Stop", pendingIntent).build()
-//        }
-//
-//    private val startCameraAction: NotificationCompat.Action
-//        get() {
-//            val intent = Intent(this, FaceLandmarkerService::class.java).apply {
-//                action = "ACTION_START_CAMERA"
-//            }
-//            val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-//            return NotificationCompat.Action.Builder(R.drawable.baseline_play_arrow_24, "Start", pendingIntent).build()
-//        }
 
     private val stopCameraAction: NotificationCompat.Action
     get() {
@@ -329,20 +276,6 @@ private val startCameraAction: NotificationCompat.Action
         }
     }
 
-//    private fun triggerBlinkRateNotification() {
-//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle("Low Blink Rate Alert")
-//            .setContentText("Your blink rate is below the normal threshold. Please take a break.")
-//            .setSmallIcon(R.mipmap.ic_launcher_round)
-//            .build()
-//        notificationManager.notify(NOTIFICATION_ID + 1, notification)
-//    }
-
-//    private fun triggerVibration() {
-//        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-//        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -400,19 +333,6 @@ private val startCameraAction: NotificationCompat.Action
 //        Log.e(TAG, "Error: $error (Code: $errorCode)")
     }
 
-//    class ServiceLifecycleOwner : LifecycleOwner {
-//        val lifecycleRegistry = LifecycleRegistry(this)
-//        override fun getLifecycle(): Lifecycle {
-//            return lifecycleRegistry
-//        }
-//    }
-
-//    class ServiceLifecycleOwner : LifecycleOwner {
-//        private val lifecycleRegistry = LifecycleRegistry(this)
-//
-//        override val lifecycle: Lifecycle
-//            get() = lifecycleRegistry
-//    }
 
     class ServiceLifecycleOwner : LifecycleOwner {
         private val lifecycleRegistry = LifecycleRegistry(this)

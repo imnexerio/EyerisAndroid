@@ -31,17 +31,14 @@ class CameraFragment : Fragment() {
     }
 
     private fun startOverlayPreview() {
-//        showToast("Overlay Started")
         OverlayManager.setOverlayView(overlayView)
         overlayView.visibility = View.VISIBLE
-//        appLogo.visibility = View.GONE  // Hide the app logo
     }
 
     private fun stopOverlayPreview() {
-//        showToast("Overlay Stopped")
         OverlayManager.clearOverlayView()
         overlayView.visibility = View.GONE
-//        appLogo.visibility = View.VISIBLE  // Show the app logo
+
     }
 
 
@@ -59,10 +56,6 @@ class CameraFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         stopOverlayPreview()
-//        overlayView.visibility = View.GONE
     }
 
-//    private fun showToast(message: String) {
-//        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-//    }
 }
