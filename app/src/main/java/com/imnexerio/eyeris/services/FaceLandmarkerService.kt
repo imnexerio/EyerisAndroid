@@ -359,6 +359,7 @@ private val startCameraAction: NotificationCompat.Action
         fun setCurrentState(state: Lifecycle.State) {
             lifecycleRegistry.currentState = state
         }
+
     }
 
 }
