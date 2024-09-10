@@ -47,6 +47,7 @@ class FaceLandmarkerHelper(
         val baseOptionBuilder = BaseOptions.builder()
 
         // Use the specified hardware for running the model. Default to CPU
+
         when (currentDelegate) {
             DELEGATE_CPU -> {
                 baseOptionBuilder.setDelegate(Delegate.CPU)
@@ -73,6 +74,11 @@ class FaceLandmarkerHelper(
         }
 
         try {
+//            Log.i(TAG, "Delegate value : $currentDelegate")
+//            Log.i(TAG, "Detection threshold : $minFaceDetectionConfidence")
+//            Log.i(TAG, "Tracking threshold : $minFaceTrackingConfidence")
+//            Log.i(TAG, "Presence threshold : $minFacePresenceConfidence")
+//            Log.i(TAG, "Delegate value : $spinnerDelegateValue")
             val baseOptions = baseOptionBuilder.build()
             // Create an option builder with base options and specific
             // options only use for Face Landmarker.
@@ -101,20 +107,20 @@ class FaceLandmarkerHelper(
                 "Face Landmarker failed to initialize. See error logs for " +
                         "details"
             )
-            Log.e(
-                TAG, "MediaPipe failed to load the task with error: " + e
-                    .message
-            )
+//            Log.e(
+//                TAG, "MediaPipe failed to load the task with error: " + e
+//                    .message
+//            )
         } catch (e: RuntimeException) {
             // This occurs if the model being used does not support GPU
             faceLandmarkerHelperListener?.onError(
                 "Face Landmarker failed to initialize. See error logs for " +
                         "details", GPU_ERROR
             )
-            Log.e(
-                TAG,
-                "Face Landmarker failed to load model with error: " + e.message
-            )
+//            Log.e(
+//                TAG,
+//                "Face Landmarker failed to load model with error: " + e.message
+//            )
         }
     }
 

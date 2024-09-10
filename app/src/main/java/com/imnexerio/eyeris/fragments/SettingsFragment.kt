@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.SeekBar
@@ -19,7 +20,6 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.imnexerio.eyeris.R
-import java.nio.channels.Selector
 
 class SettingsFragment : Fragment() {
 
@@ -51,11 +51,13 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+            sharedPreferences = requireContext().getSharedPreferences("Settings", Context.MODE_PRIVATE)
+            return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         themeSpinner = view.findViewById(R.id.theme_spinner)
 
         switchBlinkReminder = view.findViewById(R.id.switch_blink_reminder)
@@ -103,6 +105,22 @@ class SettingsFragment : Fragment() {
         view.findViewById<Button>(R.id.about_button).setOnClickListener {
             showAboutDialog()
         }
+
+        val currentTheme = sharedPreferences.getInt("selected_theme", 0)
+
+        themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                if (position != currentTheme) {
+                    sharedPreferences.edit().putInt("selected_theme", position).apply()
+                    requireActivity().recreate() // Restart the activity to apply the new theme
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Do nothing
+            }
+        }
+
 
         loadSettings()
     }
@@ -181,9 +199,9 @@ class SettingsFragment : Fragment() {
 
         themeSpinner.setSelection(0)
 
-        switchBlinkReminder.isChecked = true
+        switchBlinkReminder.isChecked = false
         switchBlinkReminderVibration.isChecked = false
-        switchRunBlinkReminderScreenOff.isChecked = false
+        switchRunBlinkReminderScreenOff.isChecked = true
         switchTurnScreenOnNotification.isChecked = false
         switchShowOnScreenAlert.isChecked = false
         blinkIntervalValue.text = "1 minutes"

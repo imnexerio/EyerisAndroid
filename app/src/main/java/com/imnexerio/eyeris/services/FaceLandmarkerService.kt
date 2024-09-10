@@ -8,7 +8,7 @@ import android.app.Service
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.os.Binder
+import android.content.SharedPreferences
 import android.os.IBinder
 import android.util.Log
 import androidx.camera.core.CameraSelector
@@ -21,6 +21,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.google.mediapipe.tasks.vision.core.RunningMode
+import com.imnexerio.eyeris.MainActivity
 import com.imnexerio.eyeris.helpers.BlinkDatabaseHelper
 import com.imnexerio.eyeris.helpers.FaceLandmarkerHelper
 import com.imnexerio.eyeris.helpers.OverlayManager
@@ -50,13 +51,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             )
         }
     }
-//    inner class LocalBinder : Binder() {
-//        fun getService(): FaceLandmarkerService = this@FaceLandmarkerService
-//    }
-//
-//    private val binder = LocalBinder()
 
-//    private var dataUpdateListener: DataUpdateListener? = null
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var backgroundExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
@@ -72,6 +68,8 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
 
     override fun onCreate() {
         super.onCreate()
+
+        sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         databaseHelper = BlinkDatabaseHelper(this)
         createNotificationChannel()
         startForegroundService()
@@ -80,54 +78,56 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         backgroundExecutor = Executors.newSingleThreadExecutor()
 
         backgroundExecutor.execute {
-            val minFaceDetectionConfidence = getStoredValue("detection_threshold",
-                FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE
-            )
-            val minFaceTrackingConfidence = getStoredValue("tracking_threshold",
-                FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE
-            )
-            val minFacePresenceConfidence = getStoredValue("presence_threshold",
-                FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE
-            )
-            val currentDelegate = getStoredIntValue("spinner_delegate",
+
+            val detectionThreshold = sharedPreferences.getFloat("detection_threshold", FaceLandmarkerHelper.DEFAULT_FACE_DETECTION_CONFIDENCE)
+            val trackingThreshold = sharedPreferences.getFloat("tracking_threshold", FaceLandmarkerHelper.DEFAULT_FACE_TRACKING_CONFIDENCE)
+            val presenceThreshold = sharedPreferences.getFloat("presence_threshold", FaceLandmarkerHelper.DEFAULT_FACE_PRESENCE_CONFIDENCE)
+            val spinnerDelegateValue = sharedPreferences.getInt("spinner_delegate", FaceLandmarkerHelper.DELEGATE_CPU)
+
+            val currentDelegate = if (spinnerDelegateValue == 0) {
                 FaceLandmarkerHelper.DELEGATE_CPU
-            )
+//                Log.i(TAG, "Delegate value : CPU")
+            } else {
+                FaceLandmarkerHelper.DELEGATE_GPU
+//                Log.i(TAG, "Delegate value : GPU")
+            }
+
+
+            Log.i(TAG, "Detection threshold : $detectionThreshold")
+            Log.i(TAG, "Tracking threshold : $trackingThreshold")
+            Log.i(TAG, "Presence threshold : $presenceThreshold")
+            Log.i(TAG, "Delegate value : $spinnerDelegateValue")
+
+
 
             faceLandmarkerHelper = FaceLandmarkerHelper(
                 context = this,
                 runningMode = RunningMode.LIVE_STREAM,
-                minFaceDetectionConfidence = minFaceDetectionConfidence,
-                minFaceTrackingConfidence = minFaceTrackingConfidence,
-                minFacePresenceConfidence = minFacePresenceConfidence,
+                minFaceDetectionConfidence = detectionThreshold,
+                minFaceTrackingConfidence = trackingThreshold,
+                minFacePresenceConfidence = presenceThreshold,
                 maxNumFaces = 1,
                 currentDelegate = currentDelegate,
                 faceLandmarkerHelperListener = this
             )
 
-//            Log.i(TAG, "FaceLandmarkerHelper created, minFaceDetectionConfidence: $minFaceDetectionConfidence, minFaceTrackingConfidence: $minFaceTrackingConfidence, minFacePresenceConfidence: $minFacePresenceConfidence")
-//        backgroundExecutor.execute {
-//            faceLandmarkerHelper = FaceLandmarkerHelper(
-//                context = this,
-//                runningMode = RunningMode.LIVE_STREAM,
-//                minFaceDetectionConfidence = 0.5f,
-//                minFaceTrackingConfidence = 0.5f,
-//                minFacePresenceConfidence = 0.5f,
-//                maxNumFaces = 1,
-//                currentDelegate = FaceLandmarkerHelper.DELEGATE_CPU,
-//                faceLandmarkerHelperListener = this
-//            )
             setUpCamera()
         }
 
         lifecycleOwner = ServiceLifecycleOwner()
-        lifecycleOwner.lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        lifecycleOwner.setCurrentState(Lifecycle.State.STARTED)
+
+//        lifecycleOwner = ServiceLifecycleOwner()
+//        lifecycleOwner.lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
+
+
 
     private fun createNotificationChannel() {
         val serviceChannel = NotificationChannel(
             CHANNEL_ID,
             "Eyeris Service Channel",
-            NotificationManager.IMPORTANCE_HIGH
+            NotificationManager.IMPORTANCE_MIN
         )
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(serviceChannel)
@@ -138,12 +138,20 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         startForeground(NOTIFICATION_ID, notification)
     }
 
+
     private fun createNotification(isCameraActive: Boolean): Notification {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            putExtra("navigateTo", "AnalyticsFragment")
+        }
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Eyeris Service")
             .setContentText("Detecting blinks in background 😊")
             .setSmallIcon(R.mipmap.ic_launcher_round)
-
+            .setContentIntent(pendingIntent)  // Set the pending intent to the notification
+            .setAutoCancel(true)
 
         if (isCameraActive) {
             builder.addAction(stopCameraAction)
@@ -154,23 +162,24 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         return builder.build()
     }
 
-    private val stopCameraAction: NotificationCompat.Action
-        get() {
-            val intent = Intent(this, FaceLandmarkerService::class.java).apply {
-                action = "ACTION_STOP_CAMERA"
-            }
-            val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-            return NotificationCompat.Action.Builder(R.drawable.baseline_pause_24, "Stop", pendingIntent).build()
-        }
 
-    private val startCameraAction: NotificationCompat.Action
-        get() {
-            val intent = Intent(this, FaceLandmarkerService::class.java).apply {
-                action = "ACTION_START_CAMERA"
-            }
-            val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-            return NotificationCompat.Action.Builder(R.drawable.baseline_play_arrow_24, "Start", pendingIntent).build()
+    private val stopCameraAction: NotificationCompat.Action
+    get() {
+        val intent = Intent(this, FaceLandmarkerService::class.java).apply {
+            action = "ACTION_STOP_CAMERA"
         }
+        val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        return NotificationCompat.Action.Builder(0, "Stop", pendingIntent).build()
+    }
+
+private val startCameraAction: NotificationCompat.Action
+    get() {
+        val intent = Intent(this, FaceLandmarkerService::class.java).apply {
+            action = "ACTION_START_CAMERA"
+        }
+        val pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        return NotificationCompat.Action.Builder(0, "Start", pendingIntent).build()
+    }
 
     private fun updateNotification(isCameraActive: Boolean) {
         val notificationManager = getSystemService(NotificationManager::class.java) as NotificationManager
@@ -231,7 +240,7 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
                     imageAnalyzer
                 )
             } catch (exc: Exception) {
-                Log.e(TAG, "Use case binding failed", exc)
+//                Log.e(TAG, "Use case binding failed", exc)
             }
         }, ContextCompat.getMainExecutor(this))
     }
@@ -268,14 +277,14 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
             db.insert("blink_data", null, contentValues)
             db.setTransactionSuccessful()
         } catch (e: Exception) {
-            Log.i(TAG, "Blink : some error occurred while storing data")
-            Log.i(TAG, "Blink : $lefteyeopencount")
-            Log.i(TAG, "Blink : $lefteyeclosedcount")
-            Log.i(TAG, "Blink : $righteyeopencount")
-            Log.i(TAG, "Blink : $righteyeclosedcount")
+//            Log.i(TAG, "Blink : some error occurred while storing data")
+//            Log.i(TAG, "Blink : $lefteyeopencount")
+//            Log.i(TAG, "Blink : $lefteyeclosedcount")
+//            Log.i(TAG, "Blink : $righteyeopencount")
+//            Log.i(TAG, "Blink : $righteyeclosedcount")
         } finally {
             db.endTransaction()
-            Log.i(TAG, "Stored data")
+//            Log.i(TAG, "Stored data")
             lefteyeopencount = 0
             lefteyeclosedcount = 0
             righteyeopencount = 0
@@ -283,20 +292,6 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
         }
     }
 
-//    private fun triggerBlinkRateNotification() {
-//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-//            .setContentTitle("Low Blink Rate Alert")
-//            .setContentText("Your blink rate is below the normal threshold. Please take a break.")
-//            .setSmallIcon(R.mipmap.ic_launcher_round)
-//            .build()
-//        notificationManager.notify(NOTIFICATION_ID + 1, notification)
-//    }
-
-//    private fun triggerVibration() {
-//        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-//        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -351,22 +346,20 @@ class FaceLandmarkerService : Service(), FaceLandmarkerHelper.LandmarkerListener
     }
 
     override fun onError(error: String, errorCode: Int) {
-        Log.e(TAG, "Error: $error (Code: $errorCode)")
+//        Log.e(TAG, "Error: $error (Code: $errorCode)")
     }
+
 
     class ServiceLifecycleOwner : LifecycleOwner {
-        val lifecycleRegistry = LifecycleRegistry(this)
-        override fun getLifecycle(): Lifecycle {
-            return lifecycleRegistry
+        private val lifecycleRegistry = LifecycleRegistry(this)
+
+        override val lifecycle: Lifecycle
+            get() = lifecycleRegistry
+
+        fun setCurrentState(state: Lifecycle.State) {
+            lifecycleRegistry.currentState = state
         }
-    }
-    private fun getStoredValue(key: String, defaultValue: Float): Float {
-        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        return sharedPreferences.getFloat(key, defaultValue)
+
     }
 
-    private fun getStoredIntValue(key: String, defaultValue: Int): Int {
-        val sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
-        return sharedPreferences.getInt(key, defaultValue)
-    }
 }

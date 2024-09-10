@@ -1,24 +1,11 @@
 <resources>
     <string name="app_name">Eyeris</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="media_pipe">MediaPipe</string>
-
-    <string name="alt_bottom_sheet_chevron">Bottom sheet expandable indicator</string>
-
-    <string name="alt_bottom_sheet_max_results_button_minus">Decreasing
-            maximum face results button</string>
-    <string name="alt_bottom_sheet_max_results_button_plus">Increasing
-            maximum face results button</string>
     <string name="alt_bottom_sheet_threshold_button_minus">Decreasing
             threshold of face detect results button</string>
     <string name="alt_bottom_sheet_threshold_button_plus">Increasing
             threshold of face detect results button</string>
-    <string name="menu_camera">Camera</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="tv_gallery_placeholder">Click + to add an image or a video
-            to begin running the face landmarker.</string>
+
 
     <string name="label_inference_time">Inference Time</string>
     <string name="label_fps">Frames per Second</string>
@@ -28,8 +15,12 @@
             Threshold</string>
     <string name="label_face_presence_confidence_threshold">Presence
             Threshold</string>
-    <string name="label_num_faces">Number of Faces</string>
+
     <string name="label_delegate">Delegate</string>
+    <string name="analytics">Analytics</string>
+    <string name="preview">Preview</string>
+    <string name="exercises">Exercises</string>
+    <string name="settings">Settings</string>
 
     <string-array name="delegate_spinner_titles">
         <item>CPU</item>
@@ -45,13 +36,23 @@
 
 
         <string-array name="theme_options">
-            <item>Default</item>
             <item>Ocean Breeze</item>
             <item>Sunset Glow</item>
             <item>Forest Whisper</item>
             <item>Royal Elegance</item>
             <item>Urban Night</item>
-        </string-array>
+            <item>Blue Sky</item>
+            <item>Red Blaze</item>
+            <item>Orange Sunset</item>
+            <item>Green Meadow</item>
+            <item>Purple Twilight</item>
+            <item>Yellow Sunshine</item>
+            <item>Pink Blossom</item>
+            <item>Greyscale</item>
+    </string-array>
+
+
+
 
 
 

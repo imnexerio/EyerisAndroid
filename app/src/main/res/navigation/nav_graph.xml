@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/Analytics_fragment"
-        android:name="com.imnexerio.eyeris.fragments.Analyticsfragment"
+        android:name="com.imnexerio.eyeris.fragments.AnalyticsFragment"
         android:label="AnalyticsFragment"/>
 
     <fragment
