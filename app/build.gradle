@@ -13,7 +13,7 @@ android {
         minSdk 28
         targetSdk 35
         versionCode 10
-        versionName "1.0.10"
+        versionName "1.0.11"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -83,7 +83,6 @@ dependencies {
     // MediaPipe Library
     implementation 'com.google.mediapipe:tasks-vision:0.20230731'
 
-//    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation 'com.github.AAChartModel:AAChartCore-Kotlin:7.2.0'
 
